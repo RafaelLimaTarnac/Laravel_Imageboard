@@ -4,8 +4,15 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\TopicsController;
+use App\Http\Controllers\CommentsController;
+
+use App\Models\Topic;
+
 Route::get('/', function () {
-    return view('welcome');
+    $topics = Topic::all();
+    return view('welcome', ["topics"=>$topics]);
 });
 
 Route::get('/logout', function(){
@@ -17,6 +24,11 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard', function(){
         return view('fortify.dashboard');
     });
+    Route::Resource('/posts', PostsController::class);
+    Route::Resource('/comments', CommentsController::class);
+
+    // depois fazer middleware para admin
+    Route::Resource('/topics', TopicsController::class);
 });
 
 /*
@@ -30,5 +42,5 @@ Route::middleware('auth')->group(function(){
 /*
     onde parei
 
-    
+    atalho arquivo: php artisan storage:link
 */
