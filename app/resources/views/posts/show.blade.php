@@ -29,16 +29,20 @@
 		@foreach($post->comments as $comment)
 			<table>
 				<thead>
-					<th>user (trocar o id)</th>
+					<th>user</th>
 					<th>date</th>
 					<th>comment</th>
-					<th>file (depois bota com o texto)</th>
+					<th>file</th>
 				</thead>
 				<tbody>
-					<td>{{$comment->id_user}}</td>
+					<td>{{$comment->user->name}}</td>
 					<td>{{$comment->created_at}}</td>
 					<td>{{$comment->content}}</td>
-					<td>...</td>
+					@if(!count($comment->files) > 0)
+						<td>...</td>
+					@else
+						<td><img src="{{asset("storage/" . $post->files->first()->file_path)}}"></img><br><a href='{{asset("storage/" . $post->files->first()->file_path)}}'>Download File</a></td>
+					@endif
 				</tbody>
 			</table>
 		@endforeach
