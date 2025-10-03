@@ -41,7 +41,7 @@
 					@if(!count($comment->files) > 0)
 						<td>...</td>
 					@else
-						<td><img src="{{asset("storage/" . $post->files->first()->file_path)}}"></img><br><a href='{{asset("storage/" . $post->files->first()->file_path)}}'>Download File</a></td>
+						<td><img src="{{asset("storage/" . $comment->files->first()->file_path)}}"></img><br><a href='{{asset("storage/" . $comment->files->first()->file_path)}}'>Download File</a></td>
 					@endif
 				</tbody>
 			</table>
