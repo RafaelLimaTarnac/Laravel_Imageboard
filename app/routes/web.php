@@ -27,8 +27,7 @@ Route::middleware('auth')->group(function(){
     Route::Resource('/posts', PostsController::class);
     Route::Resource('/comments', CommentsController::class);
 
-    // depois fazer middleware para admin
-    Route::Resource('/topics', TopicsController::class);
+    Route::Resource('/topic', TopicsController::class);
 });
 
 /*

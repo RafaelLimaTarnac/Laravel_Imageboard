@@ -18,7 +18,7 @@ class PostsController extends Controller
         // adicionar barra de pesquisa
         // selecionar dados
         // pegar user com pesquisa
-
+        
         // atualizar para ter numero de respostas, view, tempo da ultima resposta
         $obj = Post::all();
         return View('posts.index', ['posts'=>$obj]);

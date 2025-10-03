@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 		// depois adicionar valor na tabela
-        Gate::define('isAdmin', function(User $user, User $comparison){
-			return $user->id == 1;
+        Gate::define('isAdmin', function(User $user){
+			return $user->isAdmin;
 		});
     }
 }

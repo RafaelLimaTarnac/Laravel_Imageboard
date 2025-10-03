@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Topic;
 
@@ -29,6 +31,8 @@ class TopicsController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('isAdmin', Auth::user());
+
         $obj = new Topic();
         $obj->timestamps = false;
         $obj->name = $request->name;
@@ -42,7 +46,12 @@ class TopicsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $obj = Topic::with('posts.comments')->select()->where('name', $id)->get();
+        //return $obj;
+        if(count($obj)>0)
+            return View('posts.index', ['posts'=>$obj[0]->posts]);
+        else
+            return redirect('');
     }
 
     /**

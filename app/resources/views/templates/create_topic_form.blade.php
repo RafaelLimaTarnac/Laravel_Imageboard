@@ -1,4 +1,4 @@
-<form method='POST' action='{{URL("/topics")}}' enctype='multipart/form-data'>
+<form method='POST' action='{{URL("/topic")}}' enctype='multipart/form-data'>
 @csrf
 	<table>
 		<tr>

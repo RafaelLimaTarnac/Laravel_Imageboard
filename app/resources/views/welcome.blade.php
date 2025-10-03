@@ -12,7 +12,7 @@
         @include('templates.form_error_check')
         <a href='dashboard'><button>Dashboard</button></a>
         <br><br>
-		@can('isAdmin', Auth::user())
+		@can('isAdmin')
 			@include('templates.create_topic_form')
 		@endcan
         <br><br>

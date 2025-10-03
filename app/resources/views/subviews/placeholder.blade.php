@@ -1,3 +1,8 @@
+@php
+use App\Models\Topic;
+
+$topics = Topic::all();
+@endphp
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,6 +14,7 @@
 		</style>
 	</head>
 	<body>
+		@include('templates.topics_header', ['topics'=>$topics])
 		@yield('body')
 	</body>
 </html>
