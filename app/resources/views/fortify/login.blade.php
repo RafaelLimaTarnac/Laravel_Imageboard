@@ -24,6 +24,9 @@
 			<tr>
 				<th colspan='2'><input type='submit' value='Create Account'></th>
 			</tr>
+			<tr>
+				<th colspan="2"><a href='forgot_password'>forgot password</a></th>
+			</tr>
 		</table>
 	</form>
 @endsection

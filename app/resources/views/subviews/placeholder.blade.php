@@ -14,6 +14,8 @@ $topics = Topic::all();
 		</style>
 	</head>
 	<body>
+		<a href='/dashboard'><button>Dashboard</button></a>
+		<a href='/'><button>Home</button></a>
 		@include('templates.topics_header', ['topics'=>$topics])
 		@yield('body')
 	</body>

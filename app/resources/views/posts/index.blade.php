@@ -19,7 +19,7 @@ use App\Models\User;
 		@foreach($posts as $post)
 			<div class='post_preview'>
 				<fieldset>
-					<legend><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></legend>
+					<legend><h2><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></h2></legend>
 					<p>User: {{User::findOrFail($post->id_user)->name}}</p>
 					@if(count($post->files)>0)
 						<img style='height:100px' src='{{asset("storage/" . $post->files->first()->file_path)}}'></img>

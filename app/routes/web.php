@@ -10,9 +10,16 @@ use App\Http\Controllers\CommentsController;
 
 use App\Models\Topic;
 
+use App\Mail\test_mail;
+use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     $topics = Topic::all();
+    //Mail::to('rtarnac@gmail.com')->send(new test_mail());
     return view('welcome', ["topics"=>$topics]);
+});
+
+Route::get('forgot-password', function(){
+    return view('fortify.forgot_password');
 });
 
 Route::get('/logout', function(){
