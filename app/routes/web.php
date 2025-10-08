@@ -27,26 +27,13 @@ Route::get('/logout', function(){
     return redirect('/');
 });
 
+Route::Resource('/posts', PostsController::class);
+Route::Resource('/topic', TopicsController::class);
+
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', function(){
         return view('fortify.dashboard');
     });
-    Route::Resource('/posts', PostsController::class);
     Route::Resource('/comments', CommentsController::class);
 
-    Route::Resource('/topic', TopicsController::class);
 });
-
-/*
-    to do
-
-    serviço de e-mail
-    tabelas
-    resetar senha
-*/
-
-/*
-    onde parei
-
-    atalho arquivo: php artisan storage:link
-*/

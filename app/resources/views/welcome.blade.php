@@ -5,17 +5,13 @@
 @endsection
 
 @section('body')
-    @if(!Auth::check())
-        <a href='login'><button>Log in</button></a>
-        <a href='register'><button>Register</button></a>
-    @else
-        @include('templates.form_error_check')
-        <a href='dashboard'><button>Dashboard</button></a>
-        <br><br>
-		@can('isAdmin')
-			@include('templates.create_topic_form')
-		@endcan
-        <br><br>
-        @include('templates.create_post_form', ['topics'=>$topics])
+    @include('templates.form_error_check')
+    <br><br>
+	@can('isAdmin')
+		@include('templates.create_topic_form')
+	@endcan
+    <br><br>
+    @if(Auth::check())
+    @include('templates.create_post_form', ['topics'=>$topics])
     @endif
 @endsection

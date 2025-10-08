@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Comment;
 use App\Models\File;
@@ -31,6 +33,9 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check())
+            return redirect()->back();
+
         $obj = new Comment();
         $file_path = $request->hasFile('file') ?
             $request->file('file')->store('user_files', 'public')
@@ -82,6 +87,16 @@ class CommentsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Gate::authorize('isAdmin');
+
+        $obj = Comment::findOrFail($id);
+        if($obj->files()->first() != null){
+            $img = File::findOrFail($obj->files()->first()->id);
+            Storage::disk('public')->delete($img->file_path);
+            $img->delete();
+        }
+        $obj->delete();
+
+        return redirect()->back();
     }
 }

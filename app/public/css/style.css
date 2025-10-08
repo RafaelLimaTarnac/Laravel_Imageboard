@@ -1,0 +1,45 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+header{
+    display: flex;
+}
+header button{
+    margin: 10px;
+}
+#topics{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+#topics a{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.user_index{
+    color: green;
+}
+.title_index{
+
+}
+.post_index_img{
+    max-height: 125px;
+    align-self: center;
+    float: left;
+    margin: 10px;
+}
+.comment_index_img{
+    max-height: 100px;
+    align-self: center;
+    float: left;
+    margin: 10px;
+}
+.post{
+    display: flex;
+    flex-direction: column;
+}
+.comment{
+    display: flex;
+    flex-direction: column;
+}

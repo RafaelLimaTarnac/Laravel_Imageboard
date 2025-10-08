@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Post;
 use App\Models\File;
@@ -37,6 +39,9 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check())
+            return redirect('/');
+
         $obj = new Post();
 
         $file_path = $request->hasFile('file') ? 
@@ -91,6 +96,24 @@ class PostsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Gate::authorize('isAdmin');
+
+        $obj = Post::findOrFail($id);
+        if($obj->files()->first() != null){
+            $img = File::findOrFail($obj->files()->first()->id);
+            Storage::disk('public')->delete($img->file_path);
+            $img->delete();
+        }
+
+        $comments = $obj->comments()->get();
+        foreach($comments as $comment){
+            $img = File::findOrFail($comment->files()->first()->id);
+            Storage::disk('public')->delete($img->file_path);
+            $img->delete();
+        }
+
+        $obj->delete();
+
+        return redirect('');
     }
 }

@@ -19,22 +19,43 @@ use App\Models\User;
 		@foreach($posts as $post)
 			<div class='post_preview'>
 				<fieldset>
-					<legend><h2><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></h2></legend>
-					<p>User: {{User::findOrFail($post->id_user)->name}}</p>
-					@if(count($post->files)>0)
-						<img style='height:100px' src='{{asset("storage/" . $post->files->first()->file_path)}}'></img>
-					@endif
-					<pre>{{$post->content}}</pre>
-
+					<div class='post'>
+						@can('isAdmin')
+						<form method='POST' action='{{URL("posts/" . $post->id)}}'>
+						@csrf
+						@method('DELETE')
+							<input type='submit' value='Delete this Post'>
+						</form>
+						@endcan
+						<span>
+						<span class='user_index'>{{User::findOrFail($post->id_user)->name}}</span>
+						<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span></span>
+						<br>
+						<div class='post_content'>
+						@if(count($post->files)>0)
+							<img class='post_index_img' src='{{asset("storage/" . $post->files->first()->file_path)}}'></img>
+						@endif
+						<blockquote>{{$post->content}}</blockquote>
+						</div>
+					</div>
 					@if(count($post->comments)>0)
 						@for($i = 0; $i <= 5; $i++)
 							@if($post->comments[$i] ?? null)
 							<div class='comment'>
+									@can('isAdmin')
+									<form method='POST' action='{{URL("comments/" . $post->comments[$i]->id)}}'>
+									@csrf
+									@method('DELETE')
+										<input type='submit' value='Delete this Comment'>
+									</form>
+									@endcan
 								<p>User: {{User::findOrFail($post->comments[$i]->id_user)->name}}</p>
-								<pre>{{$post->comments[$i]->content}}</pre>
+								<div class='comment_content'>
 								@if(count($post->comments[$i]->files)>0)
-									<img style='height:100px' src='{{asset("storage/" . $post->comments[$i]->files->first()->file_path)}}'></img>
+									<img class='comment_index_img' src='{{asset("storage/" . $post->comments[$i]->files->first()->file_path)}}'></img>
 								@endif
+								<blockquote>{{$post->comments[$i]->content}}</blockquote>
+							</div>
 							</div>
 							@endif
 						@endfor
