@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Post;
 use App\Models\File;
+use App\Models\TopicConfig;
+use App\Models\Topic;
+use App\Models\User;
 
 class PostsController extends Controller
 {
@@ -21,8 +24,8 @@ class PostsController extends Controller
         // selecionar dados
         // pegar user com pesquisa
         
-        // atualizar para ter numero de respostas, view, tempo da ultima resposta
-        $obj = Post::all();
+        // atualizar para ter numero de respostas, view, tempo da ultima resposta		
+		$obj = Post::all();
         return View('posts.index', ['posts'=>$obj]);
     }
 
@@ -39,9 +42,25 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        if(!Auth::check())
+		if(!Auth::check())
+			return redirect('/');
+		
+		$conf = TopicConfig::where('topic', $request->topic)->first();
+		
+		$max_posts = $conf->max_posts;
+		$curr_posts = count(Topic::with('posts')->first()->posts);
+		
+		$max_posts_user = $conf->post_per_user;
+		$user = User::with('posts')->where('id', Auth::id())->first();
+		$user_posts = 0;
+		for($i = 0; $i <= count($user->Posts) - 1; $i++){
+			if($user->Posts[$i]->topic == $request->topic)
+				$user_posts++;
+		}
+		//depois adicionar queue de posts
+        if($curr_posts >= $max_posts || $user_posts >= $max_posts_user)
             return redirect('/');
-
+		
         $obj = new Post();
 
         $file_path = $request->hasFile('file') ? 
@@ -107,9 +126,11 @@ class PostsController extends Controller
 
         $comments = $obj->comments()->get();
         foreach($comments as $comment){
-            $img = File::findOrFail($comment->files()->first()->id);
-            Storage::disk('public')->delete($img->file_path);
-            $img->delete();
+			if($comment->files()->first() != null){
+				$img = File::findOrFail($comment->files()->first()->id);
+				Storage::disk('public')->delete($img->file_path);
+				$img->delete();
+			}
         }
 
         $obj->delete();

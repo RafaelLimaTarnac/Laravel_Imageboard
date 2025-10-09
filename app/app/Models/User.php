@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\File;
+use App\Models\Post;
 
 class User extends Authenticatable
 {
@@ -47,4 +48,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+	public function posts(){
+		return $this->hasMany(Post::class, 'id_user');
+	}
 }

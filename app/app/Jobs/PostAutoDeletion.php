@@ -39,11 +39,13 @@ class PostAutoDeletion implements ShouldQueue
                 }
 
                 $comments = $obj->comments()->get();
-                foreach($comments as $comment){
-                    $img = File::findOrFail($comment->files()->first()->id);
-                    Storage::disk('public')->delete($img->file_path);
-                    $img->delete();
-                }
+				foreach($comments as $comment){
+					if($comment->files()->first() != null){
+						$img = File::findOrFail($comment->files()->first()->id);
+						Storage::disk('public')->delete($img->file_path);
+						$img->delete();
+					}
+				}
 
                 $obj->delete();
             }

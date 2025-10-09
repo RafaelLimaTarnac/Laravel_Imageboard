@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Comment;
 use App\Models\File;
+use App\Models\Post;
+use App\Models\TopicConfig;
 
 class CommentsController extends Controller
 {
@@ -33,7 +35,20 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        if(!Auth::check())
+		$curr_post = Post::with('comments', 'config', 'files')->findOrFail($request->id_post);
+		$comms_count = count($curr_post->comments);
+		$max_comms = $curr_post->config->max_replies;
+		
+		$files = 0;
+		$comms = Comment::with('files')->get();
+		$max_files = $curr_post->config->max_files;
+		foreach($comms as $comm){
+			if(count($comm->files) > 0)
+				$files++;
+		}
+		
+        if(!Auth::check() || $comms_count >= $max_comms || 
+		$files >= $max_files && $request->hasFile('file'))
             return redirect()->back();
 
         $obj = new Comment();
