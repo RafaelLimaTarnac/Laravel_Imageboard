@@ -55,6 +55,7 @@ class TopicConfigsController extends Controller
     public function update(Request $request, string $id)
     {
         $obj = TopicConfig::select()->where('topic', $id)->first();
+
         $obj->max_posts = $request->max_posts;
         $obj->max_replies = $request->max_replies;
         $obj->max_files = $request->max_files;

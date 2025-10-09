@@ -11,11 +11,8 @@ use App\Http\Controllers\TopicConfigsController;
 
 use App\Models\Topic;
 
-use App\Mail\test_mail;
-use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     $topics = Topic::all();
-    //Mail::to('rtarnac@gmail.com')->send(new test_mail());
     return view('welcome', ["topics"=>$topics]);
 });
 
