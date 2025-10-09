@@ -28,8 +28,10 @@ use App\Models\User;
 						</form>
 						@endcan
 						<span>
+						<span>{{$post->created_at}}</span>
 						<span class='user_index'>{{User::findOrFail($post->id_user)->name}}</span>
-						<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span></span>
+						<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span>
+						</span>
 						<br>
 						<div class='post_content'>
 						@if(count($post->files)>0)

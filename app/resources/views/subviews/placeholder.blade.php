@@ -16,12 +16,15 @@ $topics = Topic::all();
 	</head>
 	<body>
 		<header>
+			<a href='/'><button>Home</button></a>
+			<a href='/dashboard'><button>Dashboard</button></a>
 		    @if(!Auth::check())
 		        <a href='/login'><button>Log in</button></a>
 		        <a href='/register'><button>Register</button></a>
 		    @endif
-			<a href='/'><button>Home</button></a>
-			<a href='/dashboard'><button>Dashboard</button></a>
+		    @can('isAdmin')
+		    	<a href='/post_configs'><button style='color: green'>Configure</button></a>
+		    @endcan
 		</header>
 		@include('templates.topics_header', ['topics'=>$topics])
 		@yield('body')

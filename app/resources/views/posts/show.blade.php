@@ -41,21 +41,24 @@
 		@foreach($post->comments as $comment)
 			<table>
 				<thead>
-					<th></th>
+					@can('isAdmin')
+					<th><span style='color:red'>Actions</span></th>
+					@endcan
 					<th>user</th>
 					<th>date</th>
 					<th>comment</th>
 					<th>file</th>
 				</thead>
 				<tbody>
-					<td>
 					@can('isAdmin')
+					<td>
 						<form method='POST' action='{{URL("comments/" . $comment->id)}}'>
 						@csrf
 						@method('DELETE')
 						<input type='submit' value='Delete this Comment'>
 					</form>
-					@endcan</td>
+					</td>
+					@endcan
 					<td>{{$comment->user->name}}</td>
 					<td>{{$comment->created_at}}</td>
 					<td>{{$comment->content}}</td>

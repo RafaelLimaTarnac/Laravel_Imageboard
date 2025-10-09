@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
-
-use App\Models\Topic;
 use App\Models\TopicConfig;
+use App\Models\Topic;
 
-class TopicsController extends Controller
+class TopicConfigsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $obj = Topic::with('config')->get();
+        return View('post_configs.index', ['topics'=>$obj]);
     }
 
     /**
@@ -32,23 +30,7 @@ class TopicsController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('isAdmin', Auth::user());
-
-        $obj = new Topic();
-        $obj->timestamps = false;
-        $obj->name = $request->name;
-        $obj->save();
-
-        $conf = new TopicConfig();
-        $conf->topic = $obj->name; 
-        $conf->max_posts = 15;
-        $conf->max_replies = 300;
-        $conf->max_files = 150;
-        $conf->post_per_user = 2;
-        $conf->duration_minutes = 1;
-        $conf->save();
-
-        return redirect('/');
+        //
     }
 
     /**
@@ -56,12 +38,7 @@ class TopicsController extends Controller
      */
     public function show(string $id)
     {
-        $obj = Topic::with('posts.comments')->select()->where('name', $id)->get();
-        //return $obj;
-        if(count($obj)>0)
-            return View('posts.index', ['posts'=>$obj[0]->posts]);
-        else
-            return redirect('');
+        //
     }
 
     /**
@@ -77,7 +54,15 @@ class TopicsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $obj = TopicConfig::select()->where('topic', $id)->first();
+        $obj->max_posts = $request->max_posts;
+        $obj->max_replies = $request->max_replies;
+        $obj->max_files = $request->max_files;
+        $obj->post_per_user = $request->post_per_user;
+        $obj->duration_minutes = $request->duration_minutes;
+        $obj->update();
+
+        return redirect()->back();
     }
 
     /**
