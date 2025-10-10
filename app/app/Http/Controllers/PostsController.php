@@ -137,4 +137,8 @@ class PostsController extends Controller
 
         return redirect('');
     }
+    public function reply(string $id, string $id_reply){
+        $obj = Post::with('comments')->findOrFail($id);
+        return View('posts.show', ['post'=>$obj, 'reply'=>$id_reply]);
+    }
 }

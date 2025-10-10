@@ -11,6 +11,9 @@ $topics = Topic::all();
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel='stylesheet' href='{{asset("css/style.css")}}'>
 		<style>
+			body{
+				background-image: url({{asset('images/bg.jpg')}});
+			}
 			@yield('style')
 		</style>
 	</head>

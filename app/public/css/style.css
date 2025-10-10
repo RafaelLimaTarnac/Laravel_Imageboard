@@ -81,3 +81,11 @@ header button{
     max-width: 95%;
     align-self: center;
 }
+#comment_form table{
+    margin-right: auto;
+    margin-left: auto;
+}
+#post_form table{
+    margin-right: auto;
+    margin-left: auto;
+}

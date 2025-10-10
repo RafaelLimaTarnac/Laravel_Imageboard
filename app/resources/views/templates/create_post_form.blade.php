@@ -1,4 +1,4 @@
-<form method='POST' action='{{URL("/posts")}}' enctype='multipart/form-data'>
+<form method='POST' action='{{URL("/posts")}}' enctype='multipart/form-data' id='post_form'>
 @csrf
 	<table>
 		<input type='hidden' value='{{$topic->name}}' name='topic'>

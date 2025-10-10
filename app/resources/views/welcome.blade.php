@@ -69,22 +69,7 @@ $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 						<blockquote>{{$comment->post->content}}</blockquote>
 						</div>
 					</div>
-							<div class='comment'>
-									@can('isAdmin')
-									<form method='POST' action='{{URL("comments/" . $comment->id)}}'>
-									@csrf
-									@method('DELETE')
-										<input type='submit' value='Delete this Comment'>
-									</form>
-									@endcan
-								<p>User: {{User::findOrFail($comment->id_user)->name}}</p>
-								<div class='comment_content'>
-								@if(count($comment->files)>0)
-									<img class='comment_index_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>
-								@endif
-								<blockquote>{{$comment->content}}</blockquote>
-							</div>
-							</div>
+					@include('templates.comment', ['comment'=>$comment])
 				</fieldset>
 			</div>
 	</div>

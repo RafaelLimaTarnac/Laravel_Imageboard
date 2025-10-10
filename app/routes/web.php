@@ -25,8 +25,9 @@ Route::get('/logout', function(){
 });
 
 Route::Resource('/posts', PostsController::class);
+Route::get('/posts/{id}/{reply}', [PostsController::class, 'reply']);
 Route::Resource('/topic', TopicsController::class);
-Route::Get('/topic/{topic}/catalog', [TopicsController::class, 'catalog']);
+Route::get('/topic/{topic}/catalog', [TopicsController::class, 'catalog']);
 
 Route::middleware('can:isAdmin')->group(function(){
     Route::Resource('/post_configs', TopicConfigsController::class);

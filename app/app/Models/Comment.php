@@ -18,4 +18,7 @@ class Comment extends Model
 	public function post(){
 		return $this->hasOne(Post::class, 'id', 'id_post');
 	}
+	public function replies(){
+		return $this->belongsTo(Comment::class, 'id', 'id_reply');
+	}
 }

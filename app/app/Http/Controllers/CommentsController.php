@@ -59,6 +59,8 @@ class CommentsController extends Controller
         $obj->id_post = $request->id_post;
         $obj->id_user = Auth::id();
         $obj->content = $request->content;
+        if(isset($request->id_reply))
+                $obj->id_reply = $request->id_reply;
         $obj->save();
 
         if($file_path != null){
@@ -70,7 +72,7 @@ class CommentsController extends Controller
             $file->save();
         }
 
-        return redirect()->back();
+        return redirect('posts/' . $curr_post->id);
     }
 
     /**
