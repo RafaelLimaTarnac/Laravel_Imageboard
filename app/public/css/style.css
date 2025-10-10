@@ -39,7 +39,11 @@ header button{
     display: flex;
     flex-direction: column;
 }
+.post_preview{
+	width: 80%;
+}
 .comment{
     display: flex;
     flex-direction: column;
+	border: black dashed 1px
 }

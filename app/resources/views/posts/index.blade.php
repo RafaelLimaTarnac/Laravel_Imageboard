@@ -10,8 +10,6 @@ use App\Models\User;
 
 @section('style')
 	td,tr,th{border: black solid 1px}
-
-	.comment{border: black dashed 1px}
 @endsection
 
 @section('body')
