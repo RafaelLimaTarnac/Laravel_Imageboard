@@ -1,19 +1,7 @@
 <form method='POST' action='{{URL("/posts")}}' enctype='multipart/form-data'>
 @csrf
 	<table>
-		<tr>
-			<th>Topic</th>
-			<td>
-				@if(count($topics) > 0)
-				<select name='topic'>
-					@foreach($topics as $topic)
-						<option value='{{$topic->name}}'>{{$topic->name}}</option>
-					@endforeach
-				@else
-					<p style='color: red; font-weight: bold'>No topics available</p>
-				@endif
-			</td>
-		</tr>
+		<input type='hidden' value='{{$topic->name}}' name='topic'>
 		<tr>
 			<th>Title</th>
 			<td><input type='text' name='title'></td>

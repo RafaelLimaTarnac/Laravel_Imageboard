@@ -13,6 +13,13 @@ use App\Models\User;
 @endsection
 
 @section('body')
+
+    @if(Auth::check())
+    @include('templates.create_post_form')
+    <br>
+    @endif
+
+    <a href='{{URL(url()->current() . "/catalog")}}'>Catalog</a>
 	@if(count($posts) > 0)
 		@foreach($posts as $post)
 			<div class='post_preview'>

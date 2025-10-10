@@ -15,6 +15,7 @@ $topics = Topic::all();
 		</style>
 	</head>
 	<body>
+		@include('templates.topics_header', ['topics'=>$topics])
 		<header>
 			<a href='/'><button>Home</button></a>
 			<a href='/dashboard'><button>Dashboard</button></a>
@@ -26,7 +27,6 @@ $topics = Topic::all();
 		    	<a href='/post_configs'><button style='color: green'>Configure</button></a>
 		    @endcan
 		</header>
-		@include('templates.topics_header', ['topics'=>$topics])
 		@yield('body')
 	</body>
 </html>

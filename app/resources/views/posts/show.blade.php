@@ -11,6 +11,7 @@
 @endsection
 
 @section('body')
+@include('templates.form_error_check')
 	@can('isAdmin')
 		<form method='POST' action='{{URL("posts/" . $post->id)}}'>
 		@csrf

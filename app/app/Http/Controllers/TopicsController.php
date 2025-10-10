@@ -57,9 +57,9 @@ class TopicsController extends Controller
     public function show(string $id)
     {
         $obj = Topic::with('posts.comments')->select()->where('name', $id)->get();
-        //return $obj;
+
         if(count($obj)>0)
-            return View('posts.index', ['posts'=>$obj[0]->posts]);
+            return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first()]);
         else
             return redirect('');
     }
@@ -86,5 +86,11 @@ class TopicsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function catalog(string $id)
+    {
+        $obj = Topic::with('posts')->select()->where('name', $id)->get()->first();
+        
+        return View('topic.catalog', ['posts'=>$obj->posts]);
     }
 }

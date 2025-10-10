@@ -15,17 +15,11 @@ $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 @section('body')
     @include('templates.form_error_check')
     <br><br>
-	@can('isAdmin')
-		@include('templates.create_topic_form')
-	@endcan
-    <br><br>
-    @if(Auth::check())
-    @include('templates.create_post_form', ['topics'=>$topics])
-    @endif
 	<br>
+	@if($post != null)
+<fieldset>
+<legend><h2>Lastest Post (<span style='color:blue;'>Topic: </span>{{$post->topic}})</h2></legend>
 	<div class='post_preview'>
-		<fieldset>
-		<legend><h2>Lastest Post (<span style='color:blue;'>Topic: </span>{{$post->topic}})</h2></legend>
 			<div class='post'>
 				@can('isAdmin')
 				<form method='POST' action='{{URL("posts/" . $post->id)}}'>
@@ -48,10 +42,12 @@ $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 				</div>
 			</div>
 		</fieldset>
+	@endif
 		<br>
+	@if($comment != null)
+	<fieldset>
+	<legend><h2>Latest Comment (<span style='color:blue;'>Topic: </span>{{$comment->post->topic}})</h2></legend>
 		<div class='post_preview'>
-				<fieldset>
-				<legend><h2>Latest Comment (<span style='color:blue;'>Topic: </span>{{$comment->post->topic}})</h2></legend>
 					<div class='post'>
 						@can('isAdmin')
 						<form method='POST' action='{{URL("posts/" . $comment->post->id)}}'>
@@ -92,4 +88,5 @@ $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 				</fieldset>
 			</div>
 	</div>
+	@endif
 @endsection

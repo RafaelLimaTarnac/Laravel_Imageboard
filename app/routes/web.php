@@ -12,8 +12,7 @@ use App\Http\Controllers\TopicConfigsController;
 use App\Models\Topic;
 
 Route::get('/', function () {
-    $topics = Topic::all();
-    return view('welcome', ["topics"=>$topics]);
+    return view('welcome');
 });
 
 Route::get('forgot-password', function(){
@@ -27,6 +26,7 @@ Route::get('/logout', function(){
 
 Route::Resource('/posts', PostsController::class);
 Route::Resource('/topic', TopicsController::class);
+Route::Get('/topic/{topic}/catalog', [TopicsController::class, 'catalog']);
 
 Route::middleware('can:isAdmin')->group(function(){
     Route::Resource('/post_configs', TopicConfigsController::class);

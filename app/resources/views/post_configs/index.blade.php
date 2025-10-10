@@ -8,41 +8,56 @@ input{ font-size:0.8em;}
 <br>
 <fieldset>
 	<legend><h2>Topics</h2></legend>
+	@can('isAdmin')
+		@include('templates.create_topic_form')
+	@endcan
+    <br><br>
 	@foreach($topics as $topic)
 	<form method='POST' action='{{URL("/post_configs/" . $topic->name)}}'>
 	@csrf
 	@method('PATCH')
 		<table>
-			<thead>
+			<tr>
 				<th>Name</th>
-				<th>Max Posts</th>
-				<th>Max Replies (per post)</th>
-				<th>Max Files (per post)</th>
-				<th>Post per user</th>
-				<th>Post Duration (minutes)</th>
-				<th>Action</th>
-			</thead>
-			<tbody>
 				<td>{{$topic->name}}</td>
+			</tr>
+			<tr>
+				<th>Max Posts</th>
 				<td>
 					<input type='number' name='max_posts' value='{{$topic->config->max_posts}}'>
 				</td>
+			</tr>
+			<tr>
+				<th>Max Replies (per post)</th>
 				<td>
 					<input type='number' name='max_replies' value='{{$topic->config->max_replies}}'>
 				</td>
+			</tr>
+			<tr>
+				<th>Max Files (per post)</th>
 				<td>
 					<input type='number' name='max_files' value='{{$topic->config->max_files}}'>
 				</td>
+			</tr>
+			<tr>
+				<th>Post per user</th>
 				<td>
 					<input type='number' name='post_per_user' value='{{$topic->config->post_per_user}}'>
 				</td>
+			</tr>
+			<tr>
+				<th>Post Duration (minutes)</th>
 				<td>
 					<input type='number' name='duration_minutes' value='{{$topic->config->duration_minutes}}'>
 				</td>
+			</tr>
+			<tr>
+				<th>Action</th>
 				<td><input type='submit' value='Update Topic'></td>
-			</tbody>
+			</tr>
 		</table>
 	</form>
+	<br><br>
 	@endforeach
 </fieldset>
 @endsection
