@@ -54,12 +54,12 @@ class TopicsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $topic)
     {
-        $obj = Topic::with('posts.comments')->select()->where('name', $id)->get();
-
+        $pin = Topic::with('pinned_posts.comments')->select()->where('name', $topic)->get();
+        $obj = Topic::with('posts.comments')->select()->where('name', $topic)->get();
         if(count($obj)>0)
-            return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first()]);
+            return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first(), 'pinned'=>$pin[0]->pinned_posts]);
         else
             return redirect('');
     }

@@ -15,7 +15,11 @@
 			<td><input type='file' name='file'></td>
 		</tr>
 		<tr>
-			<th colspan="2"><input type='submit' value='Create Post'></th>
+			<th colspan="2"><input type='submit' value='Create Post'>
+				@can('isAdmin')
+					<label style='color: green'><input type='checkbox' name='isPinned'>Pin Post</label>
+				@endcan
+			</th>
 		</tr>
 	</table>
 </form>

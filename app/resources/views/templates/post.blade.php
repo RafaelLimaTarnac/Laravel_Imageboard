@@ -12,6 +12,9 @@ use App\Models\User;
 			</form>
 			@endcan
 			<span>
+			@if($post->isPinned)
+				<span style='color: red'>PINNED</span>
+			@endif
 			<span>{{$post->created_at}}</span>
 			<span class='user_index'>{{User::findOrFail($post->id_user)->name}}</span>
 			<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span>
@@ -25,9 +28,17 @@ use App\Models\User;
 			</div>
 		</div>
 		@if(count($post->comments)>0)
-			@foreach($post->comments as $comment)
-				@include('templates.comment', ['comment'=>$comment])
-			@endforeach
+			@if(isset($limit))
+				@for($i = 0; $i <= $limit - 1; $i++)
+					@if(isset($post->comments[$i]))
+						@include('templates.comment', ['comment'=>$post->comments[$i]])
+					@endif
+				@endfor
+			@else
+				@foreach($post->comments as $comment)
+					@include('templates.comment', ['comment'=>$comment])
+				@endforeach
+			@endif
 		@endif
 	</fieldset>
 </div>

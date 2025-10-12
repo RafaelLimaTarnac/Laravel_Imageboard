@@ -71,6 +71,10 @@ class PostsController extends Controller
         $obj->topic = $request->topic;
         $obj->content = $request->content;
         $obj->title = $request->title;
+        if(isset($request->isPinned)){
+            Gate::authorize('isAdmin', Auth::user());
+            $obj->isPinned = true;
+        }
         $obj->save();
 
         if($file_path != null){
