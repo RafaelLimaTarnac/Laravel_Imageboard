@@ -4,6 +4,9 @@ use App\Models\User;
 <div class='post_preview'>
 	<fieldset>
 		<div class='post'>
+
+			@include('templates.create_report_form', ['id'=>$post->id, 'type'=>"post"])
+
 			@can('isAdmin')
 			<form method='POST' action='{{URL("posts/" . $post->id)}}'>
 			@csrf
@@ -20,6 +23,7 @@ use App\Models\User;
 			<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span>
 			</span>
 			<br>
+
 			<div class='post_content'>
 			@if(count($post->files)>0)
 				<img class='post_index_img' src='{{asset("storage/" . $post->files->first()->file_path)}}'></img>

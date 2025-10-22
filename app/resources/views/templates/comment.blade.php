@@ -2,6 +2,9 @@
 use App\Models\User;
 @endphp
 <div class='comment'>
+				
+				@include('templates.create_report_form', ['id'=>$comment->id, 'type'=>"comment"])
+
 				@can('isAdmin')
 				<form method='POST' action='{{URL("comments/" . $comment->id)}}'>
 				@csrf
@@ -9,6 +12,7 @@ use App\Models\User;
 					<input type='submit' value='Delete this Comment'>
 				</form>
 				@endcan
+
 				<div class='comment_info'>
 				 <span style='color: blue'>>>{{$comment->id}} |</span>
 				 <span>{{$comment->created_at}} </span>
@@ -20,6 +24,7 @@ use App\Models\User;
 					@endforeach
 				@endif
 				</div>
+
 			<div class='comment_content'>
 				@if(count($comment->files)>0)
 					<img class='comment_index_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>

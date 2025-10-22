@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Report;
 
 class Comment extends Model
 {
@@ -21,4 +22,7 @@ class Comment extends Model
 	public function replies(){
 		return $this->belongsTo(Comment::class, 'id', 'id_reply');
 	}
+    public function reportable(){
+        return $this->morphMany(Report::class, 'reportable');
+    }
 }

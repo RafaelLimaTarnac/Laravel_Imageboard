@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\TopicConfig;
+use App\Models\Report;
 
 class Post extends Model
 {
@@ -21,5 +22,8 @@ class Post extends Model
     }
     public function config(){
         return $this->hasOne(TopicConfig::class, 'topic', 'topic');
+    }
+    public function reportable(){
+        return $this->morphMany(Report::class, 'reportable');
     }
 }

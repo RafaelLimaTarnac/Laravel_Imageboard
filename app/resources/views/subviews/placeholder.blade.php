@@ -28,8 +28,10 @@ $topics = Topic::all();
 		    @endif
 		    @can('isAdmin')
 		    	<a href='/post_configs'><button style='color: green'>Configure</button></a>
+		    	<a href='/report_list'><button style='color: green'>Reports</button></a>
 		    @endcan
 		</header>
 		@yield('body')
 	</body>
+	<script src="{{asset('js/ReportForm.js')}}"></script>
 </html>
