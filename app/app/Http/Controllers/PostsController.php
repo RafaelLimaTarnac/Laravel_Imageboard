@@ -137,9 +137,13 @@ class PostsController extends Controller
 			}
         }
 
+        $reports = $obj->reportable()->get();
+        foreach($reports as $report)
+            $report->delete();
+
         $obj->delete();
 
-        return redirect('');
+        return redirect()->back();
     }
     public function reply(string $id, string $id_reply){
         $obj = Post::with('comments')->findOrFail($id);

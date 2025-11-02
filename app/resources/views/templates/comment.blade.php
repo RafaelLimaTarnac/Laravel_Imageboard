@@ -3,7 +3,9 @@ use App\Models\User;
 @endphp
 <div class='comment'>
 				
-				@include('templates.create_report_form', ['id'=>$comment->id, 'type'=>"comment"])
+				@if(!isset($no_reports))
+					@include('templates.create_report_form', ['id'=>$comment->id, 'type'=>"comment"])
+				@endif
 
 				@can('isAdmin')
 				<form method='POST' action='{{URL("comments/" . $comment->id)}}'>

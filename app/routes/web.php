@@ -32,6 +32,7 @@ Route::get('/topic/{topic}/catalog', [TopicsController::class, 'catalog']);
 
 Route::Post('report', [ReportsController::class, 'report']);
 Route::get('report_list', [ReportsController::class, 'list']);
+Route::Delete('report_list/{id}', [ReportsController::class, 'delete']);
 
 Route::middleware('can:isAdmin')->group(function(){
     Route::Resource('/post_configs', TopicConfigsController::class);

@@ -46,8 +46,20 @@ class ReportsController extends Controller
         return redirect()->back();
     }
     public function list(){
-        $obj = Report::with('reportable')->get();
-        // separar os tipos aq dentro
-        return View("reports.index", ['reports'=>$obj]);
+        $obj = Report::with('reportable.files')->get();
+        $posts = Array();
+        $comments = Array();
+        foreach($obj as $v){
+            if(isset($v->reportable()->first()->topic))
+                $posts[] = $v;
+            else
+                $comments[] = $v;
+        }
+        return View("reports.index", ['posts'=>$posts, 'comments'=>$comments]);
+    }
+    public function delete(string $id){
+        $obj = Report::findOrFail($id);
+        $obj->delete();
+        return redirect()->back();
     }
 }

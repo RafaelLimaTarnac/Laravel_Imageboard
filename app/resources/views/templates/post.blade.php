@@ -5,7 +5,9 @@ use App\Models\User;
 	<fieldset>
 		<div class='post'>
 
-			@include('templates.create_report_form', ['id'=>$post->id, 'type'=>"post"])
+			@if(!isset($no_reports))
+				@include('templates.create_report_form', ['id'=>$post->id, 'type'=>"post"])
+			@endif
 
 			@can('isAdmin')
 			<form method='POST' action='{{URL("posts/" . $post->id)}}'>

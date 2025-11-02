@@ -112,6 +112,11 @@ class CommentsController extends Controller
             Storage::disk('public')->delete($img->file_path);
             $img->delete();
         }
+
+        $reports = $obj->reportable()->get();
+        foreach($reports as $report)
+            $report->delete();
+
         $obj->delete();
 
         return redirect()->back();
