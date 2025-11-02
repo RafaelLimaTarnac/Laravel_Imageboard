@@ -10,7 +10,10 @@ use App\Models\TopicConfig;
 class Topic extends Model
 {
     public function posts(){
-        return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', false);
+        return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', false)->where('isArchived', '=', false);
+    }
+    public function archived_posts(){
+        return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', false)->where('isArchived', '=', true)->orderBy('created_at', 'desc');
     }
     public function pinned_posts(){
         return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', true);

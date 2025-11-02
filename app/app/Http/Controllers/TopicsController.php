@@ -46,6 +46,7 @@ class TopicsController extends Controller
         $conf->max_files = 150;
         $conf->post_per_user = 2;
         $conf->duration_minutes = 1;
+        $conf->archive_limit = 25;
         $conf->save();
 
         return redirect('/');
@@ -92,5 +93,10 @@ class TopicsController extends Controller
         $obj = Topic::with('posts')->select()->where('name', $id)->get()->first();
         
         return View('topic.catalog', ['posts'=>$obj->posts]);
+    }
+    public function archive(string $id){
+        $obj = Topic::with('archived_posts')->select()->where('name', $id)->get()->first();
+        
+        return View('topic.archive', ['posts'=>$obj->archived_posts]);
     }
 }

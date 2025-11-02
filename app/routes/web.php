@@ -29,6 +29,7 @@ Route::Resource('/posts', PostsController::class);
 Route::get('/posts/{id}/{reply}', [PostsController::class, 'reply']);
 Route::Resource('/topic', TopicsController::class);
 Route::get('/topic/{topic}/catalog', [TopicsController::class, 'catalog']);
+Route::get('/topic/{topic}/archive', [TopicsController::class, 'archive']);
 
 Route::Post('report', [ReportsController::class, 'report']);
 Route::get('report_list', [ReportsController::class, 'list']);

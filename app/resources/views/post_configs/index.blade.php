@@ -52,6 +52,12 @@ input{ font-size:0.8em;}
 				</td>
 			</tr>
 			<tr>
+				<th>Archive Limit</th>
+				<td>
+					<input type='number' name='archive_limit' value='{{$topic->config->archive_limit}}'>
+				</td>
+			</tr>
+			<tr>
 				<th>Action</th>
 				<td><input type='submit' value='Update Topic'></td>
 			</tr>

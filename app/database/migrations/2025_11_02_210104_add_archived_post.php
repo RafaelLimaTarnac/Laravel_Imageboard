@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->foreignId('id_reply')->nullable(true)->constrained('comments')->nullOnDelete()->cascadeOnUpdate();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->boolean('isArchived')->nullable(false)->default(false);
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropForeign(['id_reply']);
-            $table->dropColumn('id_reply');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropIfExists('isArchived');
         });
     }
 };

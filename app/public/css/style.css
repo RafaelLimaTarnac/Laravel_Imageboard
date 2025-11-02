@@ -89,3 +89,17 @@ header button{
     margin-right: auto;
     margin-left: auto;
 }
+#archive_table{
+    border: black solid 1px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#archive_table th{
+    border: black solid 1px;
+}
+#archive_table td{
+    border: black solid 1px;
+}
+.excerpt{
+    width: 70vw;
+}

@@ -20,6 +20,7 @@ use App\Models\User;
     @endif
 
     <a href='{{URL(url()->current() . "/catalog")}}'>Catalog</a>
+    <a href='{{URL(url()->current() . "/archive")}}'>Archive</a>
     @if(count($pinned) > 0)
 		@foreach($pinned as $post)
 			@include('templates.post', ['post'=>$post, 'limit'=>5])
