@@ -57,11 +57,12 @@ class PostsController extends Controller
 			if($user->Posts[$i]->topic == $request->topic)
 				$user_posts++;
 		}
-		//depois adicionar queue de posts
-        if($curr_posts >= $max_posts || $user_posts >= $max_posts_user)
+
+        if($user_posts >= $max_posts_user)
             return redirect('/');
 		
         $obj = new Post();
+
 
         $file_path = $request->hasFile('file') ? 
             $request->file('file')->store('user_files', 'public')
@@ -73,8 +74,11 @@ class PostsController extends Controller
         $obj->title = $request->title;
         if(isset($request->isPinned)){
             Gate::authorize('isAdmin', Auth::user());
-            $obj->isPinned = true;
+            $obj->status = 'pinned';
         }
+        else if($curr_posts < $max_posts)
+            $obj->status = 'active';
+
         $obj->save();
 
         if($file_path != null){
@@ -86,7 +90,7 @@ class PostsController extends Controller
             $file->save();
         }
 
-        return redirect('/');
+        return redirect()->back();
     }
 
     /**

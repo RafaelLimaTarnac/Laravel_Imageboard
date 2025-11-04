@@ -17,7 +17,7 @@ use App\Models\User;
 			</form>
 			@endcan
 			<span>
-			@if($post->isPinned)
+			@if($post->status == 'pinned')
 				<span style='color: red'>PINNED</span>
 			@endif
 			<span>{{$post->created_at}}</span>

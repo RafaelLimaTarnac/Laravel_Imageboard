@@ -2,7 +2,7 @@
 
 
 @section('body')
-@if(isset($post))
+@if(isset($posts))
 	<table id='archive_table'>
 		<thead>
 			<tr>

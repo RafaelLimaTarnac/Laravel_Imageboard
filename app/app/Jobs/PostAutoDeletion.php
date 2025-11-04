@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Post;
 use App\Models\File;
+use App\Models\TopicConfig;
 
 class PostAutoDeletion implements ShouldQueue
 {
@@ -27,16 +28,23 @@ class PostAutoDeletion implements ShouldQueue
     public function handle(): void
     {
         $now = now();
-        $posts = Post::with('config')->where('isArchived', false)->get();
+        $posts = Post::with('config')->where('status', 'active')->get();
+        /*
         foreach($posts as $obj){
-            if($obj->created_at->diffInMinutes($now) > 
+            if($obj->updated_at->diffInMinutes($now) > 
                 $obj->config->duration_minutes)
             {
-                $archived = Post::where('topic', $obj->topic)->where('isArchived', true)->count();
+                $nextInQueue = Post::where('topic', $obj->topic)->where('status', 'queued')->first();
 
+                if(!isset($nextInQueue->topic))
+                     continue;
+
+                $archived = Post::where('topic', $obj->topic)->where('status', 'archived')->count();
+
+                // Delete post if it is archived
                 if($archived >= $obj->config->archive_limit){
 
-                    $last_arch = Post::where('topic', $obj->topic)->where('isArchived', true)->first();
+                    $last_arch = Post::where('topic', $obj->topic)->where('status', 'archived')->orderBy('created_at')->first();
 
                     if($last_arch->files()->first() != null){
                         $img = File::findOrFail($last_arch->files()->first()->id);
@@ -53,10 +61,29 @@ class PostAutoDeletion implements ShouldQueue
                         }
                     }
                     $last_arch->delete();
+
+                    // call next queued post
+                    $nextInQueue->status = 'active';
+                    $nextInQueue->update();
+
+                    $obj->status = 'archived';
+                    $obj->update();
                 }
-                
-                $obj->isArchived = true;
-                $obj->update();
+            }
+        }
+        */
+        // check if we can activate more queued posts
+        $configs = TopicConfig::all();
+        foreach($configs as $config){
+            $posts = Post::where('status', 'active')->where('topic', $config->topic)->count();
+            if($posts < $config->max_posts){
+                // falta limitar
+                $archived = Post::where('status', 'active')->where('topic', $config->topic)->get();
+
+                foreach($archived as $archived_post){
+                    $archived_post->status = 'active';
+                    $archived_post->update();
+                }
             }
         }
     }

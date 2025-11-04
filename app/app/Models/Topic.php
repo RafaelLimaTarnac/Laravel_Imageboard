@@ -10,13 +10,16 @@ use App\Models\TopicConfig;
 class Topic extends Model
 {
     public function posts(){
-        return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', false)->where('isArchived', '=', false);
+        return $this->hasMany(Post::class, 'topic', 'name')->where('status', '=', 'active');
     }
     public function archived_posts(){
-        return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', false)->where('isArchived', '=', true)->orderBy('created_at', 'desc');
+        return $this->hasMany(Post::class, 'topic', 'name')->where('status', '=', 'archived')->orderBy('updated_at', 'desc');
     }
     public function pinned_posts(){
-        return $this->hasMany(Post::class, 'topic', 'name')->where('isPinned', '=', true);
+        return $this->hasMany(Post::class, 'topic', 'name')->where('status', '=', 'pinned');
+    }
+    public function queued_posts(){
+        return $this->hasMany(Post::class, 'topic', 'name')->where('status', '=', 'queued');
     }
     public function config(){
         return $this->hasOne(TopicConfig::class, 'topic', 'name');

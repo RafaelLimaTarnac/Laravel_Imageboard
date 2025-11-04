@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('title', 100)->nullable(false);
             $table->longText('content')->nullable(false);
 
+            $table->enum('status', ['archived', 'queued', 'active', 'pinned'])->nullable(false)->default('queued');
+
             $table->timestamps();
         });
     }
