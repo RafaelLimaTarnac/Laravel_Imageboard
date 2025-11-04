@@ -4,8 +4,7 @@ use App\Models\User;
 <div class='post_preview'>
 	<fieldset>
 		<div class='post'>
-
-			@if(!isset($no_reports))
+			@if(!isset($no_reports) && Auth::check())
 				@include('templates.create_report_form', ['id'=>$post->id, 'type'=>"post"])
 			@endif
 
@@ -20,7 +19,7 @@ use App\Models\User;
 			@if($post->status == 'pinned')
 				<span style='color: red'>PINNED</span>
 			@endif
-			<span>{{$post->created_at}}</span>
+			<span>{{$post->updated_at}}</span>
 			<span class='user_index'>{{User::findOrFail($post->id_user)->name}}</span>
 			<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span>
 			</span>

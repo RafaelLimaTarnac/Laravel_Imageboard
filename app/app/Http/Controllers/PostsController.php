@@ -72,6 +72,7 @@ class PostsController extends Controller
         $obj->topic = $request->topic;
         $obj->content = $request->content;
         $obj->title = $request->title;
+        $obj->last_comment_at = now();
         if(isset($request->isPinned)){
             Gate::authorize('isAdmin', Auth::user());
             $obj->status = 'pinned';

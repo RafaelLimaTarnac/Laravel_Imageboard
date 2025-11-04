@@ -1,7 +1,13 @@
 @php
 use App\Models\Topic;
+use App\Models\Report;
+use Illuminate\Support\Facades\Gate;
 
 $topics = Topic::all();
+
+if(Gate::allows('isAdmin')){
+	$reports = Report::count();
+}
 @endphp
 <!DOCTYPE html>
 <html>
@@ -28,8 +34,9 @@ $topics = Topic::all();
 		    @endif
 		    @can('isAdmin')
 		    	<a href='/post_configs'><button style='color: green'>Configure</button></a>
-		    	<a href='/report_list'><button style='color: green'>Reports</button></a>
+		    	<a href='/report_list'><button style='color: green'>({{$reports}})Reports</button></a>
 		    @endcan
+		    @yield('header_buttons')
 		</header>
 		@yield('body')
 	</body>

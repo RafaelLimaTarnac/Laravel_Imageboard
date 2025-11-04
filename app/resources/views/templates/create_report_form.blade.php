@@ -1,5 +1,5 @@
 <div class='report'>
-	<button class='report-form-button'>Report Post</button>
+	<button class='report-form-button'>Report</button>
 	<div class='report-form'>
 		<form method='post' action='/report'>
 		@csrf

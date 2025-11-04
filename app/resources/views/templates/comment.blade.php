@@ -3,7 +3,7 @@ use App\Models\User;
 @endphp
 <div class='comment'>
 				
-				@if(!isset($no_reports))
+				@if(!isset($no_reports) && Auth::check())
 					@include('templates.create_report_form', ['id'=>$comment->id, 'type'=>"comment"])
 				@endif
 
@@ -19,7 +19,9 @@ use App\Models\User;
 				 <span style='color: blue'>>>{{$comment->id}} |</span>
 				 <span>{{$comment->created_at}} </span>
 				 <span style='color: green'>{{User::findOrFail($comment->id_user)->name}}</span>
+				@if(Auth::check())
 				 <a href='{{URL( "posts/" . $comment->id_post . "/" . $comment->id)}}'><button>reply</button></a>
+				@endif
 				@if(count($comment->replies()->get()) > 0)
 					@foreach($comment->replies()->get() as $reply)
 						<span style='color: purple'>>>{{$reply->id}} </span>

@@ -5,6 +5,7 @@ namespace App\Jobs;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Post;
 use App\Models\File;
@@ -29,8 +30,8 @@ class PostAutoDeletion implements ShouldQueue
     {
         $now = now();
         $posts = Post::with('config')->where('status', 'active')->get();
-        /*
-        foreach($posts as $obj){
+        foreach($posts as $obj)
+        {
             if($obj->updated_at->diffInMinutes($now) > 
                 $obj->config->duration_minutes)
             {
@@ -38,6 +39,7 @@ class PostAutoDeletion implements ShouldQueue
 
                 if(!isset($nextInQueue->topic))
                      continue;
+                 Log::info('tem queue ' . $nextInQueue->id);
 
                 $archived = Post::where('topic', $obj->topic)->where('status', 'archived')->count();
 
@@ -65,24 +67,21 @@ class PostAutoDeletion implements ShouldQueue
                     // call next queued post
                     $nextInQueue->status = 'active';
                     $nextInQueue->update();
-
-                    $obj->status = 'archived';
-                    $obj->update();
                 }
+                $obj->status = 'archived';
+                $obj->update();
             }
         }
-        */
         // check if we can activate more queued posts
         $configs = TopicConfig::all();
         foreach($configs as $config){
             $posts = Post::where('status', 'active')->where('topic', $config->topic)->count();
             if($posts < $config->max_posts){
-                // falta limitar
-                $archived = Post::where('status', 'active')->where('topic', $config->topic)->get();
+                $queued = Post::where('status', 'queued')->where('topic', $config->topic)->limit($config->max_posts - $posts)->get();
 
-                foreach($archived as $archived_post){
-                    $archived_post->status = 'active';
-                    $archived_post->update();
+                foreach($queued as $queued_post){
+                    $queued_post->status = 'active';
+                    $queued_post->update();
                 }
             }
         }

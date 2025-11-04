@@ -62,6 +62,8 @@ class CommentsController extends Controller
         if(isset($request->id_reply))
                 $obj->id_reply = $request->id_reply;
         $obj->save();
+        $curr_post->last_comment_at = now();
+        $curr_post->update();
 
         if($file_path != null){
             $file = new File();

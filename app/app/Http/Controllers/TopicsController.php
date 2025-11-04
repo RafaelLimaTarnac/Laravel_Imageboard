@@ -59,6 +59,7 @@ class TopicsController extends Controller
     {
         $pin = Topic::with('pinned_posts.comments')->select()->where('name', $topic)->get();
         $obj = Topic::with('posts.comments')->select()->where('name', $topic)->get();
+        
         if(count($obj)>0)
             return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first(), 'pinned'=>$pin[0]->pinned_posts]);
         else
@@ -98,5 +99,10 @@ class TopicsController extends Controller
         $obj = Topic::with('archived_posts')->select()->where('name', $id)->get()->first();
         
         return View('topic.archive', ['posts'=>$obj->archived_posts]);
+    }
+    public function queue(string $id){
+        $obj = Topic::with('queued_posts')->select()->where('name', $id)->get()->first();
+        
+        return View('posts.index', ['posts'=>$obj->posts, 'topic'=>$obj->first()]);
     }
 }

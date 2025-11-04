@@ -4,7 +4,7 @@
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
-$post = Post::orderBy('updated_at', 'DESC')->first();
+$post = Post::where('status', 'active')->orderBy('updated_at', 'desc')->first();
 $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 @endphp
 
