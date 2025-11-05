@@ -62,6 +62,7 @@ class TopicConfigsController extends Controller
         $obj->post_per_user = $request->post_per_user;
         $obj->duration_minutes = $request->duration_minutes;
         $obj->archive_limit = $request->archive_limit;
+        $obj->motd = $request->motd;
         $obj->update();
 
         return redirect()->back();

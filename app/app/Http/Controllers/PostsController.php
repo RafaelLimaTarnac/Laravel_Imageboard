@@ -100,7 +100,7 @@ class PostsController extends Controller
     public function show(string $id)
     {
         $obj = Post::with('comments')->findOrFail($id);
-        return View('posts.show', ['post'=>$obj]);
+        return  $obj->status == 'active' ? View('posts.show', ['post'=>$obj]) : View('posts.show', ['post'=>$obj, 'noComments'=>true]);
     }
 
     /**

@@ -43,7 +43,7 @@ $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 						<br>
 						<div class='post_content'>
 						@if(count($comment->post->files)>0)
-							<img class='post_index_img' src='{{asset("storage/" . $comment->post->files->first()->file_path)}}'></img>
+							<img class='review_img' src='{{asset("storage/" . $comment->post->files->first()->file_path)}}'></img>
 						@endif
 						<blockquote>{{$comment->post->content}}</blockquote>
 						</div>

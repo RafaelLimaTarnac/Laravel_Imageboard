@@ -41,4 +41,6 @@ if(Gate::allows('isAdmin')){
 		@yield('body')
 	</body>
 	<script src="{{asset('js/ReportForm.js')}}"></script>
+	<script src="{{asset('js/ImageResize.js')}}"></script>
+	@yield('scripts')
 </html>

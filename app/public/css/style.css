@@ -23,24 +23,19 @@ header button{
 .title_index{
 
 }
-.post_index_img{
+.review_img{
     max-height: 125px;
     align-self: center;
     float: left;
     margin: 10px;
-}
-.comment_index_img{
-    max-height: 100px;
-    align-self: center;
-    float: left;
-    margin: 10px;
+    cursor: pointer;
 }
 .post{
     display: flex;
     flex-direction: column;
 }
 .post_preview{
-	width: 80%;
+	width: 95%;
     margin: 10px;
     background-color: azure;
 }

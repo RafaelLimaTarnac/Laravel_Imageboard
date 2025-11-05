@@ -36,6 +36,8 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
 		$curr_post = Post::with('comments', 'config', 'files')->findOrFail($request->id_post);
+        if($curr_post->status != 'active')
+            return redirect()->back();
 		$comms_count = count($curr_post->comments);
 		$max_comms = $curr_post->config->max_replies;
 		
@@ -63,6 +65,7 @@ class CommentsController extends Controller
                 $obj->id_reply = $request->id_reply;
         $obj->save();
         $curr_post->last_comment_at = now();
+        $curr_post->timestamps = false;
         $curr_post->update();
 
         if($file_path != null){

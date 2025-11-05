@@ -58,6 +58,12 @@ input{ font-size:0.8em;}
 				</td>
 			</tr>
 			<tr>
+				<th>Message of the day</th>
+				<td>
+					<input type='text' name='motd' value='{{$topic->config->motd}}'>
+				</td>
+			</tr>
+			<tr>
 				<th>Action</th>
 				<td><input type='submit' value='Update Topic'></td>
 			</tr>

@@ -22,7 +22,7 @@
 				<th colspan='2'><input type='checkbox' name='remember'> Remember me?</th>
 			</tr>
 			<tr>
-				<th colspan='2'><input type='submit' value='Create Account'></th>
+				<th colspan='2'><input type='submit' value='Login'></th>
 			</tr>
 			<tr>
 				<th colspan="2"><a href='forgot_password'>forgot password</a></th>

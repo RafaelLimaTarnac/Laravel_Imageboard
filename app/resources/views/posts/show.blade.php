@@ -13,16 +13,22 @@
 @section('body')
 @include('templates.form_error_check')
 
-@if(Auth::check())
-	@if(!isset($reply))
-		@include('templates.create_comment', ['post'=>$post])
+@if(!isset($noComments))
+	@if(Auth::check())
+		@if(!isset($reply))
+			@include('templates.create_comment', ['post'=>$post])
+		@else
+			@include('templates.create_comment', ['post'=>$post, 'reply'=>$reply])
+		@endif
 	@else
-		@include('templates.create_comment', ['post'=>$post, 'reply'=>$reply])
+		<a href='/login'>Log in in order to comment</a>
 	@endif
-@else
-	<a href='/login'>Log in in order to comment</a>
 @endif
 
 @include('templates.post', ['post'=>$post])
 
+@endsection
+
+@section('scripts')
+<script src="{{asset('js/CommentFocus.js')}}"></script>
 @endsection

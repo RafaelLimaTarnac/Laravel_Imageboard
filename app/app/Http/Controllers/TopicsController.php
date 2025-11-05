@@ -57,11 +57,13 @@ class TopicsController extends Controller
      */
     public function show(string $topic)
     {
+        $current_topic = Topic::with('config')->where('name', $topic)->first();
+
         $pin = Topic::with('pinned_posts.comments')->select()->where('name', $topic)->get();
         $obj = Topic::with('posts.comments')->select()->where('name', $topic)->get();
-        
+
         if(count($obj)>0)
-            return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first(), 'pinned'=>$pin[0]->pinned_posts]);
+            return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first(), 'pinned'=>$pin[0]->pinned_posts, 'motd'=>$current_topic->config->motd]);
         else
             return redirect('');
     }
@@ -102,7 +104,7 @@ class TopicsController extends Controller
     }
     public function queue(string $id){
         $obj = Topic::with('queued_posts')->select()->where('name', $id)->get()->first();
-        
-        return View('posts.index', ['posts'=>$obj->posts, 'topic'=>$obj->first()]);
+
+        return View('posts.index', ['posts'=>$obj->queued_posts, 'topic'=>$obj->first(), 'motd'=>"Post Queue"]);
     }
 }

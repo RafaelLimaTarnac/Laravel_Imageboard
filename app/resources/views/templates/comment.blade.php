@@ -1,8 +1,7 @@
 @php
 use App\Models\User;
 @endphp
-<div class='comment'>
-				
+<div class='comment' id="{{$comment->id}}">
 				@if(!isset($no_reports) && Auth::check())
 					@include('templates.create_report_form', ['id'=>$comment->id, 'type'=>"comment"])
 				@endif
@@ -15,27 +14,32 @@ use App\Models\User;
 				</form>
 				@endcan
 
-				<div class='comment_info'>
-				 <span style='color: blue'>>>{{$comment->id}} |</span>
-				 <span>{{$comment->created_at}} </span>
-				 <span style='color: green'>{{User::findOrFail($comment->id_user)->name}}</span>
-				@if(Auth::check())
-				 <a href='{{URL( "posts/" . $comment->id_post . "/" . $comment->id)}}'><button>reply</button></a>
+				@if(count($comment->files)>0)
+					<span style='font-size: 0.8em;'>file: <a href='{{asset("storage/" . $comment->files->first()->file_path)}}' target="_blank">{{substr($comment->files->first()->file_path, 11)}}</a>
+					</span>
 				@endif
-				@if(count($comment->replies()->get()) > 0)
-					@foreach($comment->replies()->get() as $reply)
-						<span style='color: purple'>>>{{$reply->id}} </span>
-					@endforeach
-				@endif
-				</div>
-
 			<div class='comment_content'>
 				@if(count($comment->files)>0)
-					<img class='comment_index_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>
+					<img class='review_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>
 				@endif
+				<div class='comment_info'>
+					<span style='white-space: nowrap;'>
+					 <span style='color: green'>{{User::findOrFail($comment->id_user)->name}}</span>
+					 <span>{{$comment->created_at}} </span>
+					 <span style='color: blue'>No. {{$comment->id}} |</span>
+					@if(Auth::check())
+					 <a href='{{URL( "posts/" . $comment->id_post . "/" . $comment->id)}}'><button>reply</button></a>
+					@endif
+					@if(count($comment->replies()->get()) > 0)
+						@foreach($comment->replies()->get() as $reply)
+							<a style='color: purple' href='{{URL( "posts/" . $comment->id_post . "#" . $reply->id)}}'>>>{{$reply->id}} </a>
+						@endforeach
+					@endif
+					</span>
+				</div>
 				<blockquote>
 					@if($comment->id_reply != null)
-					<span class='reply' style="color: purple;">>>{{$comment->id_reply}}</span>
+					<a class='reply' style="color: purple;" href='{{URL( "posts/" . $comment->id_post . "#" . $comment->id_reply)}}'>>>{{$comment->id_reply}}</a>
 					@endif
 					{{$comment->content}}
 				</blockquote>
