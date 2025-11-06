@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Topic;
+use App\Models\Post;
 use App\Models\TopicConfig;
 
 class TopicsController extends Controller
@@ -58,12 +59,11 @@ class TopicsController extends Controller
     public function show(string $topic)
     {
         $current_topic = Topic::with('config')->where('name', $topic)->first();
-
-        $pin = Topic::with('pinned_posts.comments')->select()->where('name', $topic)->get();
-        $obj = Topic::with('posts.comments')->select()->where('name', $topic)->get();
-
-        if(count($obj)>0)
-            return View('posts.index', ['posts'=>$obj[0]->posts, 'topic'=>$obj->first(), 'pinned'=>$pin[0]->pinned_posts, 'motd'=>$current_topic->config->motd]);
+        
+        $posts = Post::with('comments')->where('status', 'active')->where('topic', $topic)->paginate(3);
+        return $posts;
+        if(count($posts)>0)
+            return View('posts.index', ['posts'=>$posts, 'topic'=>$current_topic, 'motd'=>$current_topic->config->motd]);
         else
             return redirect('');
     }

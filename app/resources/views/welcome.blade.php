@@ -5,7 +5,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 $post = Post::where('status', 'active')->orderBy('updated_at', 'desc')->first();
-$comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
+$cPostId = Comment::with('post')->orderBy('updated_at', 'DESC')->first()->id_post;
+$cPost = Post::findOrFail($cPostId);
 @endphp
 
 @section('head')
@@ -23,34 +24,10 @@ $comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
 	</fieldset>
 	@endif
 	<br>
-	@if($comment != null)
+	@if($cPost != null)
 	<fieldset>
-	<legend><h2>Latest Comment (<span style='color:blue;'>Topic: </span>{{$comment->post->topic}})</h2></legend>
-		<div class='post_preview'>
-					<div class='post'>
-						@can('isAdmin')
-						<form method='POST' action='{{URL("posts/" . $comment->post->id)}}'>
-						@csrf
-						@method('DELETE')
-							<input type='submit' value='Delete this Post'>
-						</form>
-						@endcan
-						<span>
-						<span>{{$comment->post->created_at}}</span>
-						<span class='user_index'>{{User::findOrFail($comment->post->id_user)->name}}</span>
-						<span class='title_index'><a href='{{URL("posts/" . $comment->post->id)}}'>{{$comment->post->title}}</a></span>
-						</span>
-						<br>
-						<div class='post_content'>
-						@if(count($comment->post->files)>0)
-							<img class='review_img' src='{{asset("storage/" . $comment->post->files->first()->file_path)}}'></img>
-						@endif
-						<blockquote>{{$comment->post->content}}</blockquote>
-						</div>
-					</div>
-					@include('templates.comment', ['comment'=>$comment])
-				</fieldset>
-			</div>
-	</div>
+	<legend><h2>Latest Comment (<span style='color:blue;'>Topic: </span>{{$cPost->topic}})</h2></legend>
+		@include('templates.post', ['post'=>$cPost, 'limit'=>1])
+	</fieldset>
 	@endif
 @endsection

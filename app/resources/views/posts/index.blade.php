@@ -39,14 +39,6 @@ if(Gate::allows('isAdmin')){
     <a href='{{URL(url()->current() . "/catalog")}}'>Catalog</a>
     <a href='{{URL(url()->current() . "/archive")}}'>Archive</a>
 
-    @if(isset($pinned))
-		@if(count($pinned) > 0)
-			@foreach($pinned as $post)
-				@include('templates.post', ['post'=>$post, 'limit'=>5])
-			@endforeach
-		@endif
-    @endif
-
     @if(isset($posts))
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
@@ -56,4 +48,7 @@ if(Gate::allows('isAdmin')){
 			<h2>No posts</h2>
 		@endif
 	@endif
+	<div>
+		{{$posts->links('pagination::semantic-ui')}}
+	</div>
 @endsection

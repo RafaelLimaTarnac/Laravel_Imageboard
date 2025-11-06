@@ -27,10 +27,11 @@ if(Gate::allows('isAdmin')){
 		@include('templates.topics_header', ['topics'=>$topics])
 		<header>
 			<a href='/'><button>Home</button></a>
-			<a href='/dashboard'><button>Dashboard</button></a>
 		    @if(!Auth::check())
 		        <a href='/login'><button>Log in</button></a>
 		        <a href='/register'><button>Register</button></a>
+		    @else
+		    	<a href='{{URL("logout")}}' onclick='return confirm("Log Out\nAre you sure?")'><button>Log Out</button></a>
 		    @endif
 		    @can('isAdmin')
 		    	<a href='/post_configs'><button style='color: green'>Configure</button></a>

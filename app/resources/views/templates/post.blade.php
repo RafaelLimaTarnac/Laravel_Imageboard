@@ -9,7 +9,7 @@ use App\Models\User;
 			@endif
 
 			@can('isAdmin')
-			<form method='POST' action='{{URL("posts/" . $post->id)}}'>
+			<form method='POST' action='{{URL("posts/" . $post->id)}}'onclick='return confirm("Delete Post: {{$post->title}}\nAre you sure?")'>
 			@csrf
 			@method('DELETE')
 				<input type='submit' value='Delete this Post'>
@@ -39,7 +39,7 @@ use App\Models\User;
 		</div>
 		@if(count($post->comments)>0)
 			@if(isset($limit))
-				@for($i = 0; $i <= $limit - 1; $i++)
+				@for($i = count($post->comments) - $limit; $i <= count($post->comments) - 1; $i++)
 					@if(isset($post->comments[$i]))
 						@include('templates.comment', ['comment'=>$post->comments[$i]])
 					@endif
