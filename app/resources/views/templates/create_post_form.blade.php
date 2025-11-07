@@ -4,11 +4,11 @@
 		<input type='hidden' value='{{$topic->name}}' name='topic'>
 		<tr>
 			<th>Title</th>
-			<td><input type='text' name='title'></td>
+			<td><input type='text' name='title' maxlength="60"></td>
 		</tr>
 		<tr>
 			<th>Contents</th>
-			<td><textarea name='content'></textarea></td>
+			<td><textarea name='content' maxlength="560"></textarea></td>
 		</tr>
 		<tr>
 			<th>Attach Files</th>

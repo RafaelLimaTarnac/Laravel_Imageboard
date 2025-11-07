@@ -65,7 +65,7 @@ class TopicConfigsController extends Controller
         $obj->motd = $request->motd;
         $obj->update();
 
-        return redirect()->back();
+        return redirect('/topic/' . $obj->topic);
     }
 
     /**

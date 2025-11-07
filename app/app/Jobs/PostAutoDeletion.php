@@ -39,7 +39,6 @@ class PostAutoDeletion implements ShouldQueue
 
                 if(!isset($nextInQueue->topic))
                      continue;
-                 Log::info('tem queue ' . $nextInQueue->id);
 
                 $archived = Post::where('topic', $obj->topic)->where('status', 'archived')->count();
 
@@ -63,11 +62,10 @@ class PostAutoDeletion implements ShouldQueue
                         }
                     }
                     $last_arch->delete();
-
-                    // call next queued post
-                    $nextInQueue->status = 'active';
-                    $nextInQueue->update();
                 }
+                $nextInQueue->status = 'active';
+                $nextInQueue->update();
+
                 $obj->status = 'archived';
                 $obj->update();
             }

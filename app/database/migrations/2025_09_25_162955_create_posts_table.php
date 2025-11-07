@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('topic')->nullable(false);
             $table->foreign('topic')->references('name')->on('topics')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->string('title', 100)->nullable(false);
-            $table->longText('content')->nullable(false);
+            $table->string('title', 60)->nullable(false);
+            $table->string('content', 560)->nullable(false);
 
             $table->enum('status', ['archived', 'queued', 'active', 'pinned'])->nullable(false)->default('queued');
 

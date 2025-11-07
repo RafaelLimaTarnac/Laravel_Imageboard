@@ -60,12 +60,11 @@ class TopicsController extends Controller
     {
         $current_topic = Topic::with('config')->where('name', $topic)->first();
         
-        $posts = Post::with('comments')->where('status', 'active')->where('topic', $topic)->paginate(3);
-        return $posts;
+        $posts = Post::with('comments')->where('status', '<>', 'queued')->where('status', '<>', 'archived')->where('topic', $topic)->orderByRaw("FIELD(status, \"pinned\", \"active\")")->orderBy('last_comment_at', 'desc')->paginate(10);
         if(count($posts)>0)
             return View('posts.index', ['posts'=>$posts, 'topic'=>$current_topic, 'motd'=>$current_topic->config->motd]);
         else
-            return redirect('');
+            return View('posts.index', ['topic'=>$current_topic, 'motd'=>$current_topic->config->motd]);
     }
 
     /**
@@ -99,12 +98,13 @@ class TopicsController extends Controller
     }
     public function archive(string $id){
         $obj = Topic::with('archived_posts')->select()->where('name', $id)->get()->first();
-        
+
         return View('topic.archive', ['posts'=>$obj->archived_posts]);
     }
     public function queue(string $id){
-        $obj = Topic::with('queued_posts')->select()->where('name', $id)->get()->first();
+        $current_topic = Topic::with('config')->where('name', $id)->first();
+        $posts = Post::where('status', 'queued')->where('topic', $id)->paginate(10);
 
-        return View('posts.index', ['posts'=>$obj->queued_posts, 'topic'=>$obj->first(), 'motd'=>"Post Queue"]);
+        return View('posts.index', ['posts'=>$posts, 'topic'=>$current_topic, 'motd'=>"Post Queue"]);
     }
 }

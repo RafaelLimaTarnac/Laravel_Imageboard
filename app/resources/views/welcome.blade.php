@@ -5,8 +5,9 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 $post = Post::where('status', 'active')->orderBy('updated_at', 'desc')->first();
-$cPostId = Comment::with('post')->orderBy('updated_at', 'DESC')->first()->id_post;
-$cPost = Post::findOrFail($cPostId);
+$comment = Comment::with('post')->orderBy('updated_at', 'DESC')->first();
+if($comment != null)
+	$cPost = Post::findOrFail($comment->id_post);
 @endphp
 
 @section('head')
@@ -24,7 +25,7 @@ $cPost = Post::findOrFail($cPostId);
 	</fieldset>
 	@endif
 	<br>
-	@if($cPost != null)
+	@if(isset($cPost))
 	<fieldset>
 	<legend><h2>Latest Comment (<span style='color:blue;'>Topic: </span>{{$cPost->topic}})</h2></legend>
 		@include('templates.post', ['post'=>$cPost, 'limit'=>1])

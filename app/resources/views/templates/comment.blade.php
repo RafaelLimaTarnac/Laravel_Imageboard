@@ -7,7 +7,7 @@ use App\Models\User;
 				@endif
 
 				@can('isAdmin')
-				<form method='POST' action='{{URL("comments/" . $comment->id)}}'>
+				<form method='POST' action='{{URL("comments/" . $comment->id)}}'onclick='return confirm("Delete Post: {{$comment->content}}\nAre you sure?")'>
 				@csrf
 				@method('DELETE')
 					<input type='submit' value='Delete this Comment'>

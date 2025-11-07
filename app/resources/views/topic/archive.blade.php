@@ -8,6 +8,7 @@
 			<tr>
 				<th>No.</th>
 				<th class='excerpt'>Excerpt</th>
+				<th>Replies</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -16,6 +17,7 @@
 				<tr>
 					<td>{{$post->id}}</td>
 					<td>{{$post->title}}</td>
+					<td>{{$post->comments_count}}</td>
 					<td>[<a href='{{URL("posts/" . $post->id)}}'>view</a>]</td>
 				</tr>
 			@endforeach

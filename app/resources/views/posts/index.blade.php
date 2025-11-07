@@ -44,11 +44,11 @@ if(Gate::allows('isAdmin')){
 			@foreach($posts as $post)
 				@include('templates.post', ['post'=>$post, 'limit'=>5])
 			@endforeach
+			<div>
+				{{$posts->links('pagination::semantic-ui')}}
+			</div>
 		@else
 			<h2>No posts</h2>
 		@endif
 	@endif
-	<div>
-		{{$posts->links('pagination::semantic-ui')}}
-	</div>
 @endsection
