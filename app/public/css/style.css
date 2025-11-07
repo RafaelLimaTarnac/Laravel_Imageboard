@@ -1,6 +1,83 @@
 html, body {
     margin: 0;
     height: 100%;
+    background-color: black;
+}
+td, h2, h3, p, pre{
+    color: white;
+}
+th{
+    background-color: #00080C;
+    border: #d2738a solid 1px;
+    color: #d2738a;
+}
+input, textarea{
+    background-color: #00080C;
+    color: white;
+}
+.submit_header, .no_bg_header{
+    background-color: black;
+    border: none;
+}
+.submit_header input, .no_bg_header input{
+    color: #d2738a;
+    border: #d2738a outset; 1px;
+}
+.delete_button{
+    color: #46963f;
+    border: #d2738a outset; 1px;
+}
+.topic_title{
+    display: flex;
+    flex-direction: column;
+    margin:50px;
+}
+.topic_title *{
+    margin: 0;
+}
+.topic_title h2{
+    color: #d2738a;
+    font-size: 2em;
+    color: rgb(193, 180, 146);
+}
+.topic_title p{
+    color: #d2738a;
+}
+button{
+    color: #d2738a;
+    background-color: #00080C;
+    border: #d2738a outset; 1px;
+}
+button:hover{
+    cursor: pointer;
+}
+pre, span{
+    white-space: pre-line;
+    color: rgb(193, 180, 146);
+    font-size: 0.85em;
+}
+fieldset{
+    border-top: #d2738a double 5px;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}
+a:visited{
+    color: #d2738a;
+    text-decoration: none;
+}
+button a{
+    text-decoration: none;
+}
+a{
+    color: #d2738a;
+}
+.user_reply a{
+    color: #d2738a;
+    text-decoration: none;
+}
+.user_reply a:hover{
+    color: red;
 }
 header{
     display: flex;
@@ -16,15 +93,27 @@ header button{
 #topics a{
     margin-right: 5px;
     margin-left: 5px;
+    text-decoration: none;
+}
+#topics a:hover{
+    text-decoration: underline;
 }
 .user_index{
     color: green;
+    font-size: 1.0em;
+}
+.admin_link{
+    color: #46963f;
+}
+.admin_link:visited{
+    color: #46963f;
 }
 .title_index{
 
 }
 .review_img{
-    max-height: 125px;
+    max-width: 30%;
+    max-height: 50%;
     align-self: center;
     float: left;
     margin: 10px;
@@ -37,13 +126,11 @@ header button{
 .post_preview{
 	width: 95%;
     margin: 10px;
-    background-color: azure;
 }
 .comment{
     display: flex;
     flex-direction: column;
-	border: black dashed 1px;
-    background-color: #c1e6e6;
+	border: #d2738a solid 1px;
     margin: 10px;
 }
 #catalog{

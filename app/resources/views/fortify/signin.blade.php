@@ -27,7 +27,7 @@
 				<td><input type='password' name='password_confirmation' required></td>
 			</tr>
 			<tr>
-				<th colspan='2'><input type='submit' value='Create Account'></th>
+				<th colspan='2' class='no_bg_header'><input type='submit' value='Create Account'></th>
 			</tr>
 		</table>
 	</form>

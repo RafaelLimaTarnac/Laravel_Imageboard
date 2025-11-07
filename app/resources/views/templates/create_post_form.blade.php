@@ -8,14 +8,14 @@
 		</tr>
 		<tr>
 			<th>Contents</th>
-			<td><textarea name='content' maxlength="560"></textarea></td>
+			<td><textarea name='content' maxlength="3000" rows='5' cols='35'></textarea></td>
 		</tr>
 		<tr>
 			<th>Attach Files</th>
 			<td><input type='file' name='file'></td>
 		</tr>
 		<tr>
-			<th colspan="2"><input type='submit' value='Create Post'>
+			<th colspan="2" class='submit_header'><input type='submit' value='Create Post'>
 				@can('isAdmin')
 					<label style='color: green'><input type='checkbox' name='isPinned'>Pin Post</label>
 				@endcan

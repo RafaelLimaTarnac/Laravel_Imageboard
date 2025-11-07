@@ -19,13 +19,13 @@
 				<td><input type='password' name='password' required></td>
 			</tr>
 			<tr>
-				<th colspan='2'><input type='checkbox' name='remember'> Remember me?</th>
+				<th colspan='2' class='no_bg_header'><input type='checkbox' name='remember'> Remember me?</th>
 			</tr>
 			<tr>
-				<th colspan='2'><input type='submit' value='Login'></th>
+				<th colspan='2' class='no_bg_header'><input type='submit' value='Login'></th>
 			</tr>
 			<tr>
-				<th colspan="2"><a href='forgot_password'>forgot password</a></th>
+				<th colspan="2" class='no_bg_header'><a href='forgot_password'>forgot password</a></th>
 			</tr>
 		</table>
 	</form>

@@ -7,10 +7,10 @@ use App\Models\User;
 				@endif
 
 				@can('isAdmin')
-				<form method='POST' action='{{URL("comments/" . $comment->id)}}'onclick='return confirm("Delete Post: {{$comment->content}}\nAre you sure?")'>
+				<form method='POST' action='{{URL("comments/" . $comment->id)}}' onclick='return confirm("Delete Comment id: {{$comment->id}}\nAre you sure?")'>
 				@csrf
 				@method('DELETE')
-					<input type='submit' value='Delete this Comment'>
+					<input type='submit' value='Delete this Comment' class='delete_button'>
 				</form>
 				@endcan
 
@@ -24,11 +24,12 @@ use App\Models\User;
 				@endif
 				<div class='comment_info'>
 					<span style='white-space: nowrap;'>
-					 <span style='color: green'>{{User::findOrFail($comment->id_user)->name}}</span>
+					 <span class='user_index'>{{User::findOrFail($comment->id_user)->name}}</span>
 					 <span>{{$comment->created_at}} </span>
-					 <span style='color: blue'>No. {{$comment->id}} |</span>
 					@if(Auth::check())
-					 <a href='{{URL( "posts/" . $comment->id_post . "/" . $comment->id)}}'><button>reply</button></a>
+					 <span class='user_reply'><a href='{{URL( "posts/" . $comment->id_post . "/" . $comment->id)}}'>No. {{$comment->id}}</a></span>
+					@else
+					 <span>No. {{$comment->id}}</span>
 					@endif
 					@if(count($comment->replies()->get()) > 0)
 						@foreach($comment->replies()->get() as $reply)
@@ -37,11 +38,11 @@ use App\Models\User;
 					@endif
 					</span>
 				</div>
-				<blockquote>
+				<pre>
 					@if($comment->id_reply != null)
 					<a class='reply' style="color: purple;" href='{{URL( "posts/" . $comment->id_post . "#" . $comment->id_reply)}}'>>>{{$comment->id_reply}}</a>
 					@endif
 					{{$comment->content}}
-				</blockquote>
+				</pre>
 			</div>
 </div>

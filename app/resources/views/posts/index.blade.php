@@ -15,20 +15,18 @@ if(Gate::allows('isAdmin')){
 	<title>Posts Page</title>
 @endsection
 
-@section('style')
-	td,tr,th{border: black solid 1px}
-@endsection
-
 @section('header_buttons')
 	@can('isAdmin')
-		<a href='{{URL("topic/" . $topic->name . "/queue")}}'><button style='color: green'>({{$queue}})Queue</button></a>
+		<button><a href='{{URL("topic/" . $topic->name . "/queue")}}' class='admin_link'>({{$queue}})Queue</a></button>
 	@endcan
 @endsection
 
 @section('body')
-	<h2 class='title_topic' style='text-align: center;'>/ {{$topic->name}} /</h2>
+	<span class='topic_title'>
+	<h2 class='title_topic' style='text-align: center;'>/ {{$topic->name}} / - {{$topic->category}}</h2>
     @if(isset($motd))
-    <h3 id='motd' style="text-align: center">{{$motd}}</h3>
+    <p id='motd' style="text-align: center">{{$motd}}</p>
+	</span>
     @endif
 
     @if(Auth::check())
@@ -42,7 +40,7 @@ if(Gate::allows('isAdmin')){
     @if(isset($posts))
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
-				@include('templates.post', ['post'=>$post, 'limit'=>5])
+				@include('templates.post', ['post'=>$post, 'limit'=>5, 'limit_content'=>500])
 			@endforeach
 			<div>
 				{{$posts->links('pagination::semantic-ui')}}

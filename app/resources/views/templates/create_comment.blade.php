@@ -21,14 +21,14 @@
 		<input type='hidden' name='id_post' value='{{$post->id}}'>
 		<tr>
 			<th>Contents</th>
-			<td><textarea name='content'></textarea></td>
+			<td><textarea name='content' maxlength="1000"></textarea></td>
 		</tr>
 		<tr>
 			<th>Attach Files</th>
 			<td><input type='file' name='file'></td>
 		</tr>
 		<tr>
-			<th colspan="2"><input type='submit' value='Comment'></th>
+			<th colspan="2" class='submit_header'><input type='submit' value='Comment'></th>
 		</tr>
 	</table>
 </form>

@@ -2,11 +2,15 @@
 @csrf
 	<table>
 		<tr>
-			<th>Topic</th>
+			<th>Tag</th>
 			<td><input type='text' name='name'></td>
 		</tr>
 		<tr>
-			<th colspan="2"><input type='submit' value='Create Topic'></th>
+			<th>Category</th>
+			<td><input type='text' name='category'></td>
+		</tr>
+		<tr>
+			<th colspan="2" class='no_bg_header'><input type='submit' value='Create Topic'></th>
 		</tr>
 	</table>
 </form>

@@ -18,8 +18,12 @@ input{ font-size:0.8em;}
 	@method('PATCH')
 		<table>
 			<tr>
-				<th>Name</th>
+				<th>Tag</th>
 				<td>{{$topic->name}}</td>
+			</tr>
+			<tr>
+				<th>Category</th>
+				<td>{{$topic->category}}</td>
 			</tr>
 			<tr>
 				<th>Max Posts</th>
@@ -64,8 +68,7 @@ input{ font-size:0.8em;}
 				</td>
 			</tr>
 			<tr>
-				<th>Action</th>
-				<td><input type='submit' value='Update Topic'></td>
+				<th colspan="2" class="no_bg_header"><input type='submit' value='Update Topic'></th>
 			</tr>
 		</table>
 	</form>

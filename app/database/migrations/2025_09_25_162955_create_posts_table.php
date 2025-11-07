@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('topic')->references('name')->on('topics')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->string('title', 60)->nullable(false);
-            $table->string('content', 560)->nullable(false);
+            $table->string('content', 3000)->nullable(false);
 
             $table->enum('status', ['archived', 'queued', 'active', 'pinned'])->nullable(false)->default('queued');
 

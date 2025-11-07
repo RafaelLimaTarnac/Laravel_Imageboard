@@ -9,11 +9,13 @@ use App\Models\User;
 			@endif
 
 			@can('isAdmin')
-			<form method='POST' action='{{URL("posts/" . $post->id)}}'onclick='return confirm("Delete Post: {{$post->title}}\nAre you sure?")'>
-			@csrf
-			@method('DELETE')
-				<input type='submit' value='Delete this Post'>
-			</form>
+			<div style="width: 110px;">
+				<form method='POST' action='{{URL("posts/" . $post->id)}}'onclick='return confirm("Delete Post: {{$post->title}}\nAre you sure?")'>
+				@csrf
+				@method('DELETE')
+					<input type='submit' value='Delete this Post' class='delete_button'>
+				</form>
+			</div>
 			@endcan
 			
 			@if(count($post->files)>0)
@@ -34,7 +36,16 @@ use App\Models\User;
 				<span class='title_index'><a href='{{URL("posts/" . $post->id)}}'>{{$post->title}}</a></span>
 			</span>
 			<br>
-			<blockquote>{{$post->content}}</blockquote>
+			@if(!isset($limit_content))
+				<pre>{{$post->content}}</pre>
+			@else
+				@if(strlen($post->content) > $limit_content)
+					<pre>{{substr($post->content, 0, $limit_content)}}</pre>
+					<span>post is too long, click <a href='/posts/{{$post->id}}'>here</a> to see the full post</span>
+				@else
+					<pre>{{$post->content}}</pre>
+				@endif
+			@endif
 			</div>
 		</div>
 		@if(count($post->comments)>0)

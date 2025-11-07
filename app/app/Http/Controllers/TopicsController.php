@@ -38,6 +38,7 @@ class TopicsController extends Controller
         $obj = new Topic();
         $obj->timestamps = false;
         $obj->name = $request->name;
+        $obj->category = $request->category;
         $obj->save();
 
         $conf = new TopicConfig();

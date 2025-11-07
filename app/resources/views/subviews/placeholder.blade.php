@@ -17,25 +17,22 @@ if(Gate::allows('isAdmin')){
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel='stylesheet' href='{{asset("css/style.css")}}'>
 		<style>
-			body{
-				background-image: url({{asset('images/bg.jpg')}});
-			}
 			@yield('style')
 		</style>
 	</head>
 	<body>
 		@include('templates.topics_header', ['topics'=>$topics])
 		<header>
-			<a href='/'><button>Home</button></a>
+			<button><a href='/'>Home</a></button>
 		    @if(!Auth::check())
-		        <a href='/login'><button>Log in</button></a>
-		        <a href='/register'><button>Register</button></a>
+		        <button><a href='/login'>Log in</a></button>
+		        <button><a href='/register'>Register</a></button>
 		    @else
-		    	<a href='{{URL("logout")}}' onclick='return confirm("Log Out\nAre you sure?")'><button>Log Out</button></a>
+		    	<button><a href='{{URL("logout")}}' onclick='return confirm("Log Out\nAre you sure?")'>Log Out</a></button>
 		    @endif
 		    @can('isAdmin')
-		    	<a href='/post_configs'><button style='color: green'>Configure</button></a>
-		    	<a href='/report_list'><button style='color: green'>({{$reports}})Reports</button></a>
+		    	<button><a href='/post_configs' class='admin_link'>Configure</a></button>
+		    	<button><a href='/report_list' class='admin_link'>({{$reports}})Reports</a></button>
 		    @endcan
 		    @yield('header_buttons')
 		</header>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->string('name')->nullable(false);
             $table->primary('name');
+            $table->string('category');
         });
     }
 
