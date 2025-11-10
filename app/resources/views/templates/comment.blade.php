@@ -21,13 +21,7 @@ use App\Models\User;
 				@endif
 			<div class='comment_content'>
 				@if(count($comment->files)>0)
-					@switch(pathinfo(asset("storage/" . $comment->files->first()->file_path), PATHINFO_EXTENSION))
-						@case('pdf')
-							<img class='review_img' src='{{asset("images/pdf_icon.png")}}'></img>
-						@break
-						@default
-							<img class='review_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>
-					@endswitch
+					@include("templates.file_handler", ["path"=>$comment->files->first()->file_path])
 				@endif
 				<div class='comment_info'>
 					<span style='white-space: nowrap;'>

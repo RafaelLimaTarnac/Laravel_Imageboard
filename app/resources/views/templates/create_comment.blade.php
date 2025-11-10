@@ -21,7 +21,7 @@
 		<input type='hidden' name='id_post' value='{{$post->id}}'>
 		<tr>
 			<th>Contents</th>
-			<td><textarea name='content' maxlength="1000"></textarea></td>
+			<td><textarea name='content' maxlength="1000" required></textarea></td>
 		</tr>
 		<tr>
 			<th>Attach Files</th>

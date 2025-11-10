@@ -10,7 +10,7 @@ use App\Models\TopicConfig;
 class Topic extends Model
 {
     public function posts(){
-        return $this->hasMany(Post::class, 'topic', 'name')->where('status', '=', 'active')->orderBy('last_comment_at', 'desc');
+        return $this->hasMany(Post::class, 'topic', 'name')->withCount('comments')->where('status', '=', 'active')->orderBy('last_comment_at', 'desc');
     }
     public function archived_posts(){
         return $this->hasMany(Post::class, 'topic', 'name')->withCount('comments')->where('status', '=', 'archived')->orderBy('updated_at', 'desc');

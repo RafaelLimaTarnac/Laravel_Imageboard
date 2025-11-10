@@ -12,6 +12,7 @@ use App\Models\File;
 use App\Models\TopicConfig;
 use App\Models\Topic;
 use App\Models\User;
+use App\Http\Requests\PostCreateRequest;
 
 class PostsController extends Controller
 {
@@ -40,7 +41,7 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostCreateRequest $request)
     {
 		if(!Auth::check())
 			return redirect('/');
@@ -89,7 +90,7 @@ class PostsController extends Controller
             $file->timestamps = false;
             $file->save();
         }
-
+        
         return redirect()->back();
     }
 

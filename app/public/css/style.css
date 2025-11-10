@@ -39,7 +39,6 @@ input, textarea{
     margin: 0;
 }
 .topic_title h2{
-    color: #d2738a;
     font-size: 2em;
     color: rgb(193, 180, 146);
 }
@@ -117,8 +116,8 @@ header button{
 
 }
 .review_img{
-    max-width: 30%;
-    max-height: 50%;
+    max-width: 20%;
+    max-height: 20%;
     align-self: center;
     float: left;
     margin: 10px;
@@ -148,20 +147,31 @@ header button{
     flex-direction: column;
     width: 140px;
     height: 192px;
-    justify-content: space-between;
+    justify-content: start;
     padding-top: 8px;
     padding-botton: 8px;
     padding-left: 2px;
     padding-right: 2px;
     margin: 5px;
-
-    border: black solid 1px;
+    background: rgba(182, 182, 182, 0.12);
+    border: 2px solid rgba(111, 111, 111, 0.34);
+}
+.catalog_post:hover{
+    background: rgba(130, 130, 130, 0.12);
 }
 .catalog_post *{
     text-align: center;
+    font-size: 0.8em;
 }
-.catalog_post span{
+.catalog_post .catalog_cont{
     overflow: hidden;
+}
+.catalog_title{
+    font-size: 1em;
+}
+.catalog_counters{
+    color: #d2738a;
+    font-weight: bold;
 }
 .catalog_post img{
     max-height: 33%;
@@ -185,7 +195,8 @@ header button{
     border: black solid 1px;
 }
 #archive_table td{
-    border: black solid 1px;
+    border: #d2738a solid 1px;
+    color: rgb(193, 180, 146);
 }
 .excerpt{
     width: 70vw;

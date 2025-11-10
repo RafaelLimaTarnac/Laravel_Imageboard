@@ -25,13 +25,7 @@ use App\Models\User;
 			@endif
 			<div class='post_content'>
 			@if(count($post->files)>0)
-				@switch(pathinfo(asset("storage/" . $post->files->first()->file_path), PATHINFO_EXTENSION))
-					@case('pdf')
-						<img class='review_img' src='{{asset("images/pdf_icon.png")}}'></img>
-					@break
-					@default
-						<img class='review_img' src='{{asset("storage/" . $post->files->first()->file_path)}}'></img>
-				@endswitch
+				@include("templates.file_handler", ["path"=>$post->files->first()->file_path])
 			<br>
 			@endif
 			<span style='white-space: nowrap;'>
