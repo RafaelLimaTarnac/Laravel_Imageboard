@@ -62,8 +62,6 @@ class PostsController extends Controller
             return redirect('/');
 		
         $obj = new Post();
-
-
         $file_path = $request->hasFile('file') ? 
             $request->file('file')->store('user_files', 'public')
             : null;
@@ -85,6 +83,7 @@ class PostsController extends Controller
         if($file_path != null){
             $file = new File();
             $file->file_path = $file_path;
+            $file->name = $request->file('file')->getClientOriginalName();
             $file->imageable_id = $obj->id;
             $file->imageable_type = Post::class;
             $file->timestamps = false;

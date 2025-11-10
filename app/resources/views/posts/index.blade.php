@@ -26,8 +26,8 @@ if(Gate::allows('isAdmin')){
 	<h2 class='title_topic' style='text-align: center;'>/ {{$topic->name}} / - {{$topic->category}}</h2>
     @if(isset($motd))
     <p id='motd' style="text-align: center">{{$motd}}</p>
-	</span>
     @endif
+	</span>
 
     @if(Auth::check())
     @include('templates.create_post_form')
@@ -40,7 +40,7 @@ if(Gate::allows('isAdmin')){
     @if(isset($posts))
 		@if(count($posts) > 0)
 			@foreach($posts as $post)
-				@include('templates.post', ['post'=>$post, 'limit'=>5, 'limit_content'=>500])
+				@include('templates.post', ['post'=>$post, 'limit'=>5, 'limit_content'=>700])
 			@endforeach
 			<div>
 				{{$posts->links('pagination::semantic-ui')}}

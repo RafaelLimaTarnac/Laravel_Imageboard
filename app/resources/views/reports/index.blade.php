@@ -10,13 +10,18 @@
 		<form method='post' action='{{URL("report_list/" . $post->id)}}'>
 		@csrf
 		@method('DELETE')
-			<input type='submit' value='dismiss report'>
+			<input type='submit' value='dismiss report' class='delete_button'>
 		</form>
 		<pre>{{$post->message}}</pre>
 		@include("templates.post", ['post'=>$post->reportable()->first(), 'limit'=>0, 'no_reports'=>true])
 	@endforeach
 	<h2>Comments</h2>
 	@foreach($comments as $comment)
+		<form method='post' action='{{URL("report_list/" . $comment->id)}}'>
+		@csrf
+		@method('DELETE')
+			<input type='submit' value='dismiss report' class='delete_button'>
+		</form>
 		<pre>{{$comment->message}}</pre>
 		@include("templates.comment", ['comment'=>$comment->reportable()->first(), 'no_reports'=>true])
 	@endforeach

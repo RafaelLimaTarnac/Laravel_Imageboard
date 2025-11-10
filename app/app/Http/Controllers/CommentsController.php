@@ -71,6 +71,7 @@ class CommentsController extends Controller
         if($file_path != null){
             $file = new File();
             $file->file_path = $file_path;
+            $file->name = $request->file('file')->getClientOriginalName();
             $file->imageable_id = $obj->id;
             $file->imageable_type = Comment::class;
             $file->timestamps = false;

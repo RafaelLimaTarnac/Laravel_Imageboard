@@ -7,7 +7,7 @@
 		<input type='hidden' value="{{$id}}" name='id'>
 		<input type='hidden' value="{{$type}}" name='type'>
 		<br>
-		<input type='submit' value='Send Report'>
+		<input type='submit' value='Send Report' class='confirm_button'>
 		</form>
 	</div>
 </div>

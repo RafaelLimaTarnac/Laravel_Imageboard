@@ -16,11 +16,18 @@ use App\Models\User;
 
 				@if(count($comment->files)>0)
 					<span style='font-size: 0.8em;'>file: <a href='{{asset("storage/" . $comment->files->first()->file_path)}}' target="_blank">{{substr($comment->files->first()->file_path, 11)}}</a>
+					({{$comment->files->first()->name}})
 					</span>
 				@endif
 			<div class='comment_content'>
 				@if(count($comment->files)>0)
-					<img class='review_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>
+					@switch(pathinfo(asset("storage/" . $comment->files->first()->file_path), PATHINFO_EXTENSION))
+						@case('pdf')
+							<img class='review_img' src='{{asset("images/pdf_icon.png")}}'></img>
+						@break
+						@default
+							<img class='review_img' src='{{asset("storage/" . $comment->files->first()->file_path)}}'></img>
+					@endswitch
 				@endif
 				<div class='comment_info'>
 					<span style='white-space: nowrap;'>
