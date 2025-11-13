@@ -6,9 +6,13 @@ html, body {
 td, h2 , h3, p, pre{
     color: white;
 }
-.user_func{
+.user_button{
     color: #d2738a;
 	text-decoration: underline;
+	width: max-content;
+}
+.user_button:hover{
+    cursor: pointer;
 }
 th{
     background-color: #00080C;

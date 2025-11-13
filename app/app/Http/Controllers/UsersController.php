@@ -39,7 +39,7 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-		$obj = User::with('active_posts', 'queued_posts', 'comments')->findOrFail($id);
+		$obj = User::with('active_posts', 'queued_posts', 'comments.post')->findOrFail($id);
 		return View('users.show', ['user'=>$obj, 'active'=>$obj->active_posts, 'queued'=>$obj->queued_posts, 'comments'=>$obj->comments]);
     }
 
