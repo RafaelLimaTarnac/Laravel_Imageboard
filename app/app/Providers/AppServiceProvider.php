@@ -23,8 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 		// depois adicionar valor na tabela
+		Gate::define('isManager', function(){
+			return $user->role == 'manager';
+		});
         Gate::define('isAdmin', function(User $user){
-			return $user->isAdmin;
+			return $user->role == 'admin' || $user->role == 'manager';
 		});
     }
 }

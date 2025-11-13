@@ -9,6 +9,7 @@ use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\TopicConfigsController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\UsersController;
 
 use App\Models\Topic;
 
@@ -34,10 +35,12 @@ Route::get('/topic/{topic}/archive', [TopicsController::class, 'archive']);
 
 Route::middleware('can:isAdmin')->group(function(){
     Route::Resource('/post_configs', TopicConfigsController::class);
+    Route::Resource('/users', UsersController::class);
     Route::Post('report', [ReportsController::class, 'report']);
     Route::get('report_list', [ReportsController::class, 'list']);
     Route::Delete('report_list/{id}', [ReportsController::class, 'delete']);
-Route::get('/topic/{topic}/queue', [TopicsController::class, 'queue']);
+	Route::get('/topic/{topic}/queue', [TopicsController::class, 'queue']);
+    Route::Delete('users', [UsersController::class, 'deleteUsers']);
 });
 
 Route::middleware('auth')->group(function(){

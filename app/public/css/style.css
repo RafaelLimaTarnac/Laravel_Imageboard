@@ -3,8 +3,12 @@ html, body {
     height: 100%;
     background-color: black;
 }
-td, h2, h3, p, pre{
+td, h2 , h3, p, pre{
     color: white;
+}
+.user_func{
+    color: #d2738a;
+	text-decoration: underline;
 }
 th{
     background-color: #00080C;

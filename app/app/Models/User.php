@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 use App\Models\File;
 use App\Models\Post;
+use App\Models\Comment;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,14 @@ class User extends Authenticatable
     }
 	public function posts(){
 		return $this->hasMany(Post::class, 'id_user');
+	}
+	public function active_posts(){
+		return $this->hasMany(Post::class, 'id_user')->where('status', 'active');
+	}
+	public function queued_posts(){
+		return $this->hasMany(Post::class, 'id_user')->where('status', 'queued');
+	}
+	public function comments(){
+		return $this->hasMany(Comment::class, 'id_user');
 	}
 }

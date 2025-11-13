@@ -33,6 +33,7 @@ if(Gate::allows('isAdmin')){
 		    @can('isAdmin')
 		    	<button><a href='/post_configs' class='admin_link'>Configure</a></button>
 		    	<button><a href='/report_list' class='admin_link'>({{$reports}})Reports</a></button>
+		    	<button><a href='/users' class='admin_link'>Users</a></button>
 		    @endcan
 		    @yield('header_buttons')
 		</header>
